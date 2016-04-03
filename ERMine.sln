@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERMine.Core", "ERMine.Core\ERMine.Core.csproj", "{84CDADF7-1BB5-4CA0-80D8-995CC6184E2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERMine.UnitTesting.Core", "ERMine.Core.UnitTesting\ERMine.UnitTesting.Core.csproj", "{48CFECD7-8232-4846-8193-F1345AC210FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84CDADF7-1BB5-4CA0-80D8-995CC6184E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CDADF7-1BB5-4CA0-80D8-995CC6184E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CDADF7-1BB5-4CA0-80D8-995CC6184E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CDADF7-1BB5-4CA0-80D8-995CC6184E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48CFECD7-8232-4846-8193-F1345AC210FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48CFECD7-8232-4846-8193-F1345AC210FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48CFECD7-8232-4846-8193-F1345AC210FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48CFECD7-8232-4846-8193-F1345AC210FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
