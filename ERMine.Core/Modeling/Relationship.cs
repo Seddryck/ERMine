@@ -43,6 +43,14 @@ namespace ERMine.Core.Modeling
             }
         }
 
+        public bool IsWeak
+        {
+            get
+            {
+                return entities.Any(e => e.IsWeak);
+            }
+        }
+
         
     }
 }

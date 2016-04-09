@@ -12,11 +12,19 @@ namespace ERMine.Core.Parsing
     {
         public readonly static Parser<Attribute> Attribute =
         (
-            from isKey in Keyword.IsPartOfKey.Optional()
+            from keyType in Keyword.IsPartOfKey.Optional()
             from label in Grammar.Textual
             from dataType in DataType.Optional()
             from isNullable in Keyword.IsNullable.Optional()
-            select new Attribute() { Label = label, DataType=dataType.GetOrDefault(), IsNullable=isNullable.IsDefined, IsPartOfKey=isKey.IsDefined}
+            from isMultiValued in Keyword.IsMultiValued.Optional()
+            from isDerivated in Keyword.IsDerived.Optional()
+            select new Attribute() { Label = label
+                , DataType=dataType.GetOrDefault()
+                , IsNullable=isNullable.IsDefined
+                , Key = keyType.IsDefined ? keyType.Get() : KeyType.None
+                , IsMultiValued = isMultiValued.IsDefined
+                , IsDerived = isDerivated.IsDefined
+            }
         );
 
         readonly static Parser<string> DataType =

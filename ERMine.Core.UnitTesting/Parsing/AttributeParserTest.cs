@@ -102,7 +102,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Age", attribute.Label);
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsTrue(attribute.IsNullable);
-            Assert.IsTrue(attribute.IsPartOfKey);
+            Assert.IsTrue(attribute.IsPartOfPrimaryKey);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Age", attribute.Label);
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsTrue(attribute.IsNullable);
-            Assert.IsTrue(attribute.IsPartOfKey);
+            Assert.IsTrue(attribute.IsPartOfPrimaryKey);
         }
 
         [TestMethod]
@@ -126,7 +126,42 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Age", attribute.Label);
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsTrue(attribute.IsNullable);
-            Assert.IsTrue(attribute.IsPartOfKey);
+            Assert.IsTrue(attribute.IsPartOfPrimaryKey);
+        }
+        [TestMethod]
+        public void Attribute_PartialKey_LabelAndDataTypeAndNullableAndPartialKey()
+        {
+            var input = "~Age int?";
+            var attribute = AttributeParser.Attribute.Parse(input);
+
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsTrue(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsPartOfPartialKey);
+        }
+
+        [TestMethod]
+        public void Attribute_PartialKeySpace_LabelAndDataTypeAndNullableAndPartialKey()
+        {
+            var input = "~ Age int?";
+            var attribute = AttributeParser.Attribute.Parse(input);
+
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsTrue(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsPartOfPartialKey);
+        }
+
+        [TestMethod]
+        public void Attribute_PartialKeyFullSpace_LabelAndDataTypeAndNullableAndPartialKey()
+        {
+            var input = "PPK Age int?";
+            var attribute = AttributeParser.Attribute.Parse(input);
+
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsTrue(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsPartOfPartialKey);
         }
 
         [TestMethod]
@@ -138,7 +173,19 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Age", attribute.Label);
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsTrue(attribute.IsNullable);
-            Assert.IsTrue(attribute.IsPartOfKey);
+            Assert.IsTrue(attribute.IsPartOfPrimaryKey);
+        }
+
+        [TestMethod]
+        public void Attribute_KeyFullWithSpace_LabelAndDataTypeAndNullableAndKey()
+        {
+            var input = "PKAge int ?\r\n";
+            var attribute = AttributeParser.Attribute.Parse(input);
+
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsTrue(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsPartOfPrimaryKey);
         }
 
         [TestMethod]
@@ -181,6 +228,77 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Salary", attribute.Label);
             Assert.AreEqual("decimal(10,2)", attribute.DataType);
             Assert.IsFalse(attribute.IsNullable);
+        }
+        [TestMethod]
+        public void Attributes_NotNullMultiValued_UniqueAttribute()
+        {
+            var input = "Age int#\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsMultiValued);
+        }
+
+        [TestMethod]
+        public void Attributes_NullMultiValued_UniqueAttribute()
+        {
+            var input = "Age int?#\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsTrue(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsMultiValued);
+        }
+
+        [TestMethod]
+        public void Attributes_NullSpaceMultiValued_UniqueAttribute()
+        {
+            var input = "Age int? #\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsTrue(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsMultiValued);
+        }
+
+        [TestMethod]
+        public void Attributes_Derivated_UniqueAttribute()
+        {
+            var input = "Age int%\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsTrue(attribute.IsDerived);
+        }
+
+        [TestMethod]
+        public void Attributes_DerivatedSpace_UniqueAttribute()
+        {
+            var input = "Age int %\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsTrue(attribute.IsDerived);
         }
 
     }

@@ -9,7 +9,12 @@ namespace ERMine.Core.Modeling.Factory
     {
         public Entity Create(string label, IEnumerable<Attribute> attributes)
         {
-            return new Entity(label, attributes);
+            if (attributes.Any(a => a.IsPartOfPrimaryKey))
+                return new Entity(label, attributes);
+            else if (attributes.Any(a => a.IsPartOfPartialKey))
+                return new WeakEntity(label, attributes);
+            else
+                return new Entity(label, attributes);
         }
     }
 }

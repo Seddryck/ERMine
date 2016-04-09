@@ -9,7 +9,7 @@ namespace ERMine.Core.Modeling
     public class Entity : IEquatable<Entity>, IEntityRelationship
     {
         public string Label { get; private set; }
-        public Key Key { get; }
+        public Key Key { get; protected set; }
         public IList<Attribute> Attributes { get; private set; }
 
         internal Entity(string label)
@@ -22,7 +22,17 @@ namespace ERMine.Core.Modeling
         {
             Label = label;
             Attributes = attributes.ToList();
-            Key = new Key(attributes.Where(a => a.IsPartOfKey));
+            BuildKey(attributes);
+        }
+
+        protected virtual void BuildKey(IEnumerable<Attribute> attributes)
+        {
+            Key = new PrimaryKey(attributes.Where(a => a.IsPartOfPrimaryKey));
+        }
+
+        public virtual bool IsWeak
+        {
+            get { return false; }
         }
 
         public void Define(IEnumerable<Attribute> attributes)

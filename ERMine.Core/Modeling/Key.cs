@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERMine.Core.Modeling
 {
-    public class Key
+    public abstract class Key
     {
         public IEnumerable<Attribute> Attributes { get; set; }
 
