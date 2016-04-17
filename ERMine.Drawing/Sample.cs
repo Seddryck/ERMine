@@ -1,4 +1,5 @@
 ﻿using Antlr4.StringTemplate;
+using CommandLine;
 using ERMine.Core.Modeling;
 using ERMine.Core.Modeling.Factory;
 using ERMine.Core.Modeling.Repository;
@@ -17,46 +18,22 @@ namespace ERMine.Drawing
 {
     public class Sample
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            var studentNr = new ERMine.Core.Modeling.Attribute() { Label = "StudentNr", IsPartOfPrimaryKey = true };
-            var firstName = new ERMine.Core.Modeling.Attribute() { Label = "FirstName" };
-            var lastName = new ERMine.Core.Modeling.Attribute() { Label = "LastName" };
-            var fullName = new ERMine.Core.Modeling.Attribute() { Label = "FullName", IsDerived=true };
-            var email = new ERMine.Core.Modeling.Attribute() { Label = "Email", IsMultiValued = true, IsNullable=true };
-            var studentAttributes = new List<ERMine.Core.Modeling.Attribute>() { studentNr, firstName, lastName, fullName, email };
-            var student = new EntityFactory().Create("Student", studentAttributes);
+            var source = Parser.Default.ParseArguments<CommandLineOptions>(args).MapResult(o => { return o.InputFiles.ElementAt(0); }, (x) => { return null; });
+            //var template = Parser.Default.ParseArguments<CommandLineOptions>(args).MapResult(o => { return o.Template; }, (x) => { return null; });
 
-            var courseCode = new ERMine.Core.Modeling.Attribute() { Label = "CourseCode", IsPartOfPrimaryKey = true };
-            var title = new ERMine.Core.Modeling.Attribute() { Label = "Title" };
-            var courseAttributes = new List<ERMine.Core.Modeling.Attribute>() { courseCode, title };
-            var course = new EntityFactory().Create("Course", courseAttributes);
-
-            var follow = new RelationshipFactory().Create("follow", "Student", Cardinality.OneOrMore, "Course", Cardinality.OneOrMore);
-
-            var position = new ERMine.Core.Modeling.Attribute() { Label = "Position", IsPartOfPartialKey = true };
-            var orderLineAttributes = new List<ERMine.Core.Modeling.Attribute>() { position };
-            var orderLine = new EntityFactory().Create("OrderLine", orderLineAttributes);
-
-            var orderNumber = new ERMine.Core.Modeling.Attribute() { Label = "OrderNumber", IsPartOfPrimaryKey = true };
-            var orderAttributes = new List<ERMine.Core.Modeling.Attribute>() { orderNumber };
-            var order = new EntityFactory().Create("Order", orderAttributes);
-
-            var contains = new RelationshipFactory().Create("contains", "Order", Cardinality.OneOrMore, "OrderLine", Cardinality.ExactyOne);
-
-            var list = new List<IEntityRelationship>() { student, course, follow, orderLine, order, contains };
-
-            var repository = new ModelRepository();
-            repository.Merge(list);
-            var model = repository.Get();
+            var parser = new Core.Parsing.Parser();
+            var model = parser.ParseFile(source);
 
             var text = string.Empty;
             using (var stream = Assembly.GetExecutingAssembly()
-                                           .GetManifestResourceStream("ERMine.Drawing.DefaultTemplate.txt"))
+                                           .GetManifestResourceStream("ERMine.Drawing.DefaultTemplate.st"))
             using (var reader = new StreamReader(stream))
             {
                 text = reader.ReadToEnd();
             }
+
 
             var group = new TemplateGroup('$', '$');
             group.RegisterRenderer(typeof(string), new StringRenderer());
@@ -83,7 +60,7 @@ namespace ERMine.Drawing
             wrapper.RenderingEngine = Enums.RenderingEngine.Neato;
             byte[] output = wrapper.GenerateGraph(dot, Enums.GraphReturnType.Png);
 
-            File.WriteAllBytes("toto.png", output);
+            File.WriteAllBytes("toto2.png", output);
 
         }
     }
