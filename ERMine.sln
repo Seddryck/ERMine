@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERMine.UnitTesting.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERMine.Drawing", "ERMine.Drawing\ERMine.Drawing.csproj", "{43425807-F136-4076-A118-F8FBF73AD8C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphVizWrapper", "..\GraphViz-C-Sharp-Wrapper\src\GraphVizWrapper\GraphVizWrapper.csproj", "{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,18 +55,6 @@ Global
 		{43425807-F136-4076-A118-F8FBF73AD8C0}.Release|x64.Build.0 = Release|Any CPU
 		{43425807-F136-4076-A118-F8FBF73AD8C0}.Release|x86.ActiveCfg = Release|Any CPU
 		{43425807-F136-4076-A118-F8FBF73AD8C0}.Release|x86.Build.0 = Release|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Debug|x64.Build.0 = Debug|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Debug|x86.Build.0 = Debug|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Release|x64.ActiveCfg = Release|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Release|x64.Build.0 = Release|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Release|x86.ActiveCfg = Release|Any CPU
-		{CFEC60DC-14E0-47E4-A60E-8919FB5FEF5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
