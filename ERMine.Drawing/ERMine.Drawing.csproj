@@ -41,6 +41,10 @@
       <HintPath>..\packages\Antlr4.StringTemplate.4.0.6.9004\lib\net35\Antlr4.StringTemplate.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GraphVizWrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GraphViz.NET.1.0.0\lib\net40\GraphVizWrapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,17 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardinalityRenderer.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Sample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DefaultTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\GraphViz-C-Sharp-Wrapper\src\GraphVizWrapper\GraphVizWrapper.csproj">
-      <Project>{cfec60dc-14e0-47e4-a60e-8919fb5fef5d}</Project>
-      <Name>GraphVizWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ERMine.Core\ERMine.Core.csproj">
       <Project>{84cdadf7-1bb5-4ca0-80d8-995cc6184e2d}</Project>
       <Name>ERMine.Core</Name>

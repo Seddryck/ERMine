@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ERMine.Drawing
 {
-    public class Class1
+    public class Sample
     {
         public static void Main()
         {

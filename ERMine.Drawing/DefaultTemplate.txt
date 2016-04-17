@@ -59,8 +59,6 @@
 			$entity.Label$--$attribute.Label$_$entity.Label$;
 		}$
 	}$
-
-	
 	
 	$relationships:{relationship|
 		$relationship.Members:{member|
