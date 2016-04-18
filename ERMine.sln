@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERMine.UnitTesting.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERMine.Drawing", "ERMine.Drawing\ERMine.Drawing.csproj", "{43425807-F136-4076-A118-F8FBF73AD8C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{FDD8F6AA-93FB-47C8-80DF-F25C32E5AD24}"
+	ProjectSection(SolutionItems) = preProject
+		ERMine.nuspec = ERMine.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
