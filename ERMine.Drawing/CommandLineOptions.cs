@@ -14,7 +14,7 @@ namespace ERMine.Drawing
           HelpText = "Input file to be processed.")]
         public IEnumerable<string> InputFiles { get; set; }
 
-        [Option('t', "template", Required = false, Default ="DefaultTemplate.st", 
+        [Option('t', "template", Required = false, 
           HelpText = "Template to use during the process.")]
         public string Template { get; set; }
     }

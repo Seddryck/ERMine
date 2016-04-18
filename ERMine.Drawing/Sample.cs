@@ -21,17 +21,24 @@ namespace ERMine.Drawing
         public static void Main(string[] args)
         {
             var sourceFile = Parser.Default.ParseArguments<CommandLineOptions>(args).MapResult(o => { return o.InputFiles.ElementAt(0); }, (x) => { return null; });
-            var template = Parser.Default.ParseArguments<CommandLineOptions>(args).MapResult(o => { return o.Template; }, (x) => { return null; });
+            var templateFile = Parser.Default.ParseArguments<CommandLineOptions>(args).MapResult(o => { return o.Template; }, (x) => { return null; });
 
             var parser = new Core.Parsing.Parser();
             var model = parser.ParseFile(sourceFile);
 
             var text = string.Empty;
-            using (var stream = Assembly.GetExecutingAssembly()
-                                           .GetManifestResourceStream("ERMine.Drawing.DefaultTemplate.st"))
-            using (var reader = new StreamReader(stream))
+            if (string.IsNullOrEmpty(templateFile))
             {
-                text = reader.ReadToEnd();
+                using (var stream = Assembly.GetExecutingAssembly()
+                                                           .GetManifestResourceStream("ERMine.Drawing.DefaultTemplate.st"))
+                using (var reader = new StreamReader(stream))
+                {
+                    text = reader.ReadToEnd();
+                }
+            }
+            else
+            {
+                templateFile = File.ReadAllText(templateFile);
             }
 
 
