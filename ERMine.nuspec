@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>ERMine</id>
+    <version>$version$</version>
+    <title>ERMine</title>
+    <authors>Cédric L. Charlier</authors>
+    <owners>Cédric L. Charlier</owners>
+    <licenseUrl>http://github.com/Seddryck/ERMine/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/Seddryck/ERMine</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Text parser ofr entity-relationship models</description>
+    <releaseNotes>First release of ERMine</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>ERM Parser</tags>
+  </metadata>
+</package>
