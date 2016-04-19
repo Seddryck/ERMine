@@ -8,12 +8,10 @@ new-item -Path $lib -ItemType directory
 new-item -Path $root\.nupkg -ItemType directory -force
 Copy-Item $root\ERMine.Core\bin\Debug\* $lib
 
-$version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$lib\ERMine.Core.dll").ProductVersion
-
-Write-Host "Setting .nuspec version tag to $version"
+Write-Host "Setting .nuspec version tag to $env:GitVersion_NuGetVersion"
 
 $content = (Get-Content $root\ERMine.nuspec -Encoding UTF8) 
-$content = $content -replace '\$version\$',$version
+$content = $content -replace '\$version\$',$env:GitVersion_NuGetVersion
 
 $content | Out-File $root\.package\ERMine.compiled.nuspec -Encoding UTF8
 
