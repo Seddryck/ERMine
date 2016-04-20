@@ -9,35 +9,28 @@ ERMine is a library to parse text files describing a conceptual Entity Relations
 Notation:
 # Entities
 The name of an entity must be written between brackets:
-```[ *entity_name* ]```
+[ *entity_name* ]
 
 **Expl:**
 
-``` [Customer] ```
-
-``` [Date and Time] ```
-
-``` [Country] ```
+* ``` [Customer] ```
+* ``` [Date and Time] ```
+* ``` [Country] ```
 
 ## Attributes 
 
 Atrributes must follow the name of the entity
 
-```[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [ # ] [ % ]```
+[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [ # ] [ % ]
 
 **Expl:**
 
-``` firstName ```
-
-``` firstName varchar(50) ```
-
-``` email varchar(50)? ```
-
-``` * customerNr  char(10)```
-
-``` address varchar(250) # ```
-
-``` fullName % ```
+* ``` firstName ```
+* ``` firstName varchar(50) ```
+* ``` email varchar(50)? ```
+* ``` * customerNr  char(10)```
+* ``` address varchar(250) # ```
+* ``` fullName % ```
 
 ### Before the name of the attribute
 Primary key is noted with a star (*). An alternative notation is "PK".
@@ -52,7 +45,7 @@ Derivated attributes are noted with a percentage (%).
 
 Currently, ERMine supports unary and binary relationships
 
-``` * first_entity_name * [ ? | 1 | * | + ] - * ralationship_name * - [ ? | 1 | * | + ] * second_entity_name * ```
+*first_entity_name* [ ? | 1 | * | + ] - *ralationship_name* - [ ? | 1 | * | + ] *second_entity_name*
 
 for unary relationships the name of the first and second entities must be identical.
 
@@ -65,6 +58,5 @@ for unary relationships the name of the first and second entities must be identi
 
 **Expl:**
 
-``` [Customer] +-owns-1 [Account] ```
-
-``` [City] 1-located-* [Country] ```
+* ``` [Customer] +-owns-1 [Account] ```
+* ``` [City] 1-located-* [Country] ```
