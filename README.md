@@ -58,10 +58,10 @@ for unary relationships the name of the first and second entities must be identi
 
 ## Cardinalities
 
-```?``` stands for O..1
-```1``` stands for 1..1
-```*``` stands for O..*
-```+``` stands for 1..n
+* ```?``` stands for O..1
+* ```1``` stands for 1..1
+* ```*``` stands for O..*
+* ```+``` stands for 1..n
 
 **Expl:**
 
