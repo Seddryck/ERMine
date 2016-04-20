@@ -15,4 +15,4 @@ $content = $content -replace '\$version\$',$env:GitVersion_NuGetVersion
 
 $content | Out-File $root\.package\ERMine.compiled.nuspec -Encoding UTF8
 
-& $root\.nuget\NuGet.exe pack $root\.package\ERMine.compiled.nuspec -Version (get-item env:GitVersion_AssemblySemVer) -OutputDirectory $root\.nupkg
+& $root\.nuget\NuGet.exe pack $root\.package\ERMine.compiled.nuspec -Version $env:GitVersion_AssemblySemVer -OutputDirectory $root\.nupkg
