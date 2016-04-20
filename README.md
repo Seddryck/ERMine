@@ -9,7 +9,7 @@ ERMine is a library to parse text files describing a conceptual Entity Relations
 Notation:
 # Entities
 The name of an entity must be written between brackets:
-```[ * entity_name * ]```
+```[ *entity_name* ]```
 
 **Expl:**
 
