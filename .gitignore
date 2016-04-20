@@ -155,6 +155,8 @@ publish/
 # NuGet v3's project.json files produces more ignoreable files
 *.nuget.props
 *.nuget.targets
+# The package folder can be ignored because of Package Compilation
+.package/
 
 
 # Microsoft Azure Build Output

@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{FDD8F6AA-93FB-47C8-80DF-F25C32E5AD24}"
 	ProjectSection(SolutionItems) = preProject
 		ERMine.nuspec = ERMine.nuspec
+		package-ERMine.ps1 = package-ERMine.ps1
 	EndProjectSection
 EndProject
 Global
