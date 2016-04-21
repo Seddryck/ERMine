@@ -15,6 +15,7 @@ namespace ERMine.Core.Parsing
             from keyType in Keyword.IsPartOfKey.Optional()
             from label in Grammar.Textual
             from dataType in DataType.Optional()
+            from isSparse in Keyword.IsSparse.Optional()
             from isNullable in Keyword.IsNullable.Optional()
             from isImmutable in Keyword.IsImmutable.Optional()
             from isMultiValued in Keyword.IsMultiValued.Optional()
@@ -23,6 +24,7 @@ namespace ERMine.Core.Parsing
             select new Attribute() { Label = label
                 , DataType = dataType.GetOrDefault()
                 , IsNullable = isNullable.IsDefined
+                , IsSparse = isSparse.IsDefined
                 , Key = keyType.IsDefined ? keyType.Get() : KeyType.None
                 , IsImmutable = isImmutable.IsDefined
                 , IsMultiValued = isMultiValued.IsDefined
