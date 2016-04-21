@@ -11,6 +11,7 @@ namespace ERMine.Core.Modeling
         public string Label { get; set; }
         public string DataType { get; set; }
         public bool IsNullable { get; set; }
+        public bool IsImmutable { get; set; }
         public KeyType Key { get; set; }
         public bool IsPartOfPrimaryKey
         {
