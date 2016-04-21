@@ -10,6 +10,6 @@ namespace ERMine.Core.Parsing
 {
     class Formula
     {
-        public static readonly Parser<string> Derivated = Parse.CharExcept("{%}").AtLeastOnce().Text().Contained(Parse.String("{%"), Parse.String("%}")).Token();
+        public static readonly Parser<string> Derived = Parse.CharExcept("{%}").AtLeastOnce().Text().Contained(Parse.String("{%"), Parse.String("%}")).Token();
     }
 }

@@ -272,7 +272,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         }
 
         [TestMethod]
-        public void Attributes_Derivated_UniqueAttribute()
+        public void Attributes_Derived_UniqueAttribute()
         {
             var input = "Age int%\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -283,11 +283,11 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
-            Assert.IsTrue(attribute.IsDerivated);
+            Assert.IsTrue(attribute.IsDerived);
         }
 
         [TestMethod]
-        public void Attributes_DerivatedSpace_UniqueAttribute()
+        public void Attributes_DerivedSpace_UniqueAttribute()
         {
             var input = "Age int %\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -298,7 +298,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
-            Assert.IsTrue(attribute.IsDerivated);
+            Assert.IsTrue(attribute.IsDerived);
             Assert.IsFalse(attribute.IsImmutable);
         }
 
@@ -335,7 +335,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         }
 
         [TestMethod]
-        public void Attributes_FormulaDerivated_UniqueAttribute()
+        public void Attributes_FormulaDerived_UniqueAttribute()
         {
             var input = "fullName varchar(50){% firstName + ' ' + lastName %}\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -345,12 +345,12 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("fullName", attribute.Label);
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
-            Assert.IsTrue(attribute.IsDerivated);
-            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivatedFormula);
+            Assert.IsTrue(attribute.IsDerived);
+            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivedFormula);
         }
 
         [TestMethod]
-        public void Attributes_FormulaDerivatedSpace_UniqueAttribute()
+        public void Attributes_FormulaDerivedSpace_UniqueAttribute()
         {
             var input = "fullName varchar(50) {% firstName + ' ' + lastName %}\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -360,12 +360,12 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("fullName", attribute.Label);
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
-            Assert.IsTrue(attribute.IsDerivated);
-            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivatedFormula);
+            Assert.IsTrue(attribute.IsDerived);
+            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivedFormula);
         }
 
         [TestMethod]
-        public void Attributes_FormulaDerivatedUnspecified_UniqueAttribute()
+        public void Attributes_FormulaDerivedUnspecified_UniqueAttribute()
         {
             var input = "fullName varchar(50) %\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -373,8 +373,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var attribute = attributes.ElementAt(0);
             Assert.AreEqual("fullName", attribute.Label);
-            Assert.IsTrue(attribute.IsDerivated);
-            Assert.AreEqual(string.Empty, attribute.DerivatedFormula);
+            Assert.IsTrue(attribute.IsDerived);
+            Assert.AreEqual(string.Empty, attribute.DerivedFormula);
         }
 
 
