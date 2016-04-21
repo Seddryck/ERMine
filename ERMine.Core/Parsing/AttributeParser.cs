@@ -16,12 +16,14 @@ namespace ERMine.Core.Parsing
             from label in Grammar.Textual
             from dataType in DataType.Optional()
             from isNullable in Keyword.IsNullable.Optional()
+            from isImmutable in Keyword.IsImmutable.Optional()
             from isMultiValued in Keyword.IsMultiValued.Optional()
             from isDerivated in Keyword.IsDerived.Optional()
             select new Attribute() { Label = label
                 , DataType=dataType.GetOrDefault()
                 , IsNullable=isNullable.IsDefined
                 , Key = keyType.IsDefined ? keyType.Get() : KeyType.None
+                , IsImmutable = isImmutable.IsDefined
                 , IsMultiValued = isMultiValued.IsDefined
                 , IsDerived = isDerivated.IsDefined
             }
