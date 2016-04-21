@@ -21,7 +21,7 @@ The name of an entity must be written between brackets:
 
 Atrributes must follow the name of the entity
 
-[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [ # ] [ % ]
+[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [ # ] [ % ] [{% *derivated_formula* %}]
 
 **Expl:**
 
@@ -31,6 +31,7 @@ Atrributes must follow the name of the entity
 * ``` * customerNr  char(10)```
 * ``` address varchar(250) # ```
 * ``` fullName % ```
+* ``` fullName varchar(250) {% firstName + ' ' + lastName %} ``` attribute *fullName* is derivated and the formula is *firstName + ' ' + lastName*
 
 ### Before the name of the attribute
 Primary key is noted with a star (*). An alternative notation is "PK".
@@ -40,6 +41,8 @@ The sql-type of the attribute must follow the name of the attribute.
 Nullable attributes must postfix the sql-type with an interrogation point (?). An alternative notation is "NULL".
 Multivalued attributes are noted with a cardinal (#).
 Derivated attributes are noted with a percentage (%).
+Formula for implementation of derivated attribyes must be specified between the curly braces and percentages symbols ({% ... %})
+
 
 # Relationships
 
