@@ -21,7 +21,7 @@ The name of an entity must be written between brackets:
 
 Attributes must follow the name of the entity
 
-[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [ # ] [ % ]
+[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [^] [ # ] [ % ]
 
 **Expl:**
 
