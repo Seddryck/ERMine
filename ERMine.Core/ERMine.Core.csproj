@@ -54,6 +54,7 @@
     <Compile Include="Modeling\Key.cs" />
     <Compile Include="Modeling\PartialKey.cs" />
     <Compile Include="Modeling\Repository\ModelRepository.cs" />
+    <Compile Include="Parsing\Formula.cs" />
     <Compile Include="Parsing\ModelParser.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Parsing\RelationshipTernaryParser.cs" />

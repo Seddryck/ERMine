@@ -24,6 +24,7 @@ namespace ERMine.Core.Modeling
             set { Key = value ? KeyType.Partial : KeyType.None; }
         }
         public bool IsMultiValued { get; set; }
-        public bool IsDerived { get; set; }
+        public bool IsDerivated { get; set; }
+        public string DerivatedFormula { get; set; }
     }
 }

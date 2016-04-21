@@ -19,13 +19,15 @@ namespace ERMine.Core.Parsing
             from isImmutable in Keyword.IsImmutable.Optional()
             from isMultiValued in Keyword.IsMultiValued.Optional()
             from isDerivated in Keyword.IsDerived.Optional()
+            from formulaDerivated in Formula.Derivated.Optional()
             select new Attribute() { Label = label
-                , DataType=dataType.GetOrDefault()
-                , IsNullable=isNullable.IsDefined
+                , DataType = dataType.GetOrDefault()
+                , IsNullable = isNullable.IsDefined
                 , Key = keyType.IsDefined ? keyType.Get() : KeyType.None
                 , IsImmutable = isImmutable.IsDefined
                 , IsMultiValued = isMultiValued.IsDefined
-                , IsDerived = isDerivated.IsDefined
+                , IsDerivated = isDerivated.IsDefined || formulaDerivated.IsDefined
+                , DerivatedFormula = formulaDerivated.GetOrElse(string.Empty).Trim()
             }
         );
 
