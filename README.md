@@ -64,3 +64,4 @@ Ternary relationships are noted differently
 
 * ``` [Customer] +-owns-1 [Account] ```
 * ``` [City] 1-located-* [Country] ```
+
