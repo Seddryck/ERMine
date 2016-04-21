@@ -10,15 +10,25 @@ namespace ERMine.Core.Parsing
 {
     static class ModelParser
     {
+        public readonly static Parser<IEnumerable<IEntityRelationship>> Relationships =
+        (
+            from binaryRelationships in RelationshipBinaryParser.Relationship.Many()
+            from ternaryRelationships in RelationshipTernaryParser.Relationship.Many()
+            select binaryRelationships
+                        .Union(ternaryRelationships)
+        );
+
+        public readonly static Parser<IEnumerable<IEntityRelationship>> Entities =
+        (
+            from entities in EntityParser.Entity.Many()
+            select entities
+        );
+
         readonly static Parser<IEnumerable<IEntityRelationship>> EntityRelationship =
         (
-            from relationships in RelationshipParser.Relationship.Optional()
-            from entities in EntityParser.Entity.Optional()
-            select entities.IsDefined && relationships.IsDefined  
-                    ? Enumerable.Repeat(entities.GetOrDefault() as IEntityRelationship, 1)
-                        .Union(Enumerable.Repeat(relationships.GetOrDefault() as IEntityRelationship, 1))
-                    : entities.IsDefined ? Enumerable.Repeat(entities.GetOrDefault() as IEntityRelationship, 1)
-                                        : Enumerable.Repeat(relationships.GetOrDefault() as IEntityRelationship, 1)
+            from relationships in Relationships.Many()
+            from entity in EntityParser.Entity.Optional()
+            select entity.IsDefined ? relationships.SelectMany(r => r).Union(Enumerable.Repeat((IEntityRelationship) entity.GetOrDefault(), 1)) : relationships.SelectMany(r => r)
         );
 
         public readonly static Parser<IEnumerable<IEntityRelationship>> EntityRelationships =
