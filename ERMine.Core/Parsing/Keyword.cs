@@ -16,5 +16,6 @@ namespace ERMine.Core.Parsing
         public static readonly Parser<string> IsMultiValued = Parse.String("#").Text().Or(Parse.String("#").Text().Token().Or(Parse.String("MV").Text()));
         public static readonly Parser<string> IsDerived = Parse.String("%").Text().Or(Parse.String("%").Text().Token().Or(Parse.String("CALC").Text()));
         public static readonly Parser<string> IsImmutable = Parse.String("^").Text().Or(Parse.String("^").Text().Token().Or(Parse.String("IMMUTABLE").Text()));
+        public static readonly Parser<string> IsDefault = Parse.String("=").Text().Or(Parse.String("=").Text().Token().Or(Parse.String("DEFAULT").Text()));
     }
 }
