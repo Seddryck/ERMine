@@ -18,12 +18,14 @@ namespace ERMine.Core.Parsing
             from isNullable in Keyword.IsNullable.Optional()
             from isMultiValued in Keyword.IsMultiValued.Optional()
             from isDerivated in Keyword.IsDerived.Optional()
+            from formulaDerivated in Formula.Derivated.Optional()
             select new Attribute() { Label = label
-                , DataType=dataType.GetOrDefault()
-                , IsNullable=isNullable.IsDefined
+                , DataType = dataType.GetOrDefault()
+                , IsNullable = isNullable.IsDefined
                 , Key = keyType.IsDefined ? keyType.Get() : KeyType.None
                 , IsMultiValued = isMultiValued.IsDefined
-                , IsDerived = isDerivated.IsDefined
+                , IsDerivated = isDerivated.IsDefined || formulaDerivated.IsDefined
+                , DerivatedFormula = formulaDerivated.GetOrElse(string.Empty).Trim()
             }
         );
 

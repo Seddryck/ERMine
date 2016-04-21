@@ -283,7 +283,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
-            Assert.IsTrue(attribute.IsDerived);
+            Assert.IsTrue(attribute.IsDerivated);
         }
 
         [TestMethod]
@@ -298,8 +298,52 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
-            Assert.IsTrue(attribute.IsDerived);
+            Assert.IsTrue(attribute.IsDerivated);
         }
+
+        [TestMethod]
+        public void Attributes_FormulaDerivated_UniqueAttribute()
+        {
+            var input = "fullName varchar(50){% firstName + ' ' + lastName %}\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("fullName", attribute.Label);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsTrue(attribute.IsDerivated);
+            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivatedFormula);
+        }
+
+        [TestMethod]
+        public void Attributes_FormulaDerivatedSpace_UniqueAttribute()
+        {
+            var input = "fullName varchar(50) {% firstName + ' ' + lastName %}\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("fullName", attribute.Label);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsTrue(attribute.IsDerivated);
+            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivatedFormula);
+        }
+
+        [TestMethod]
+        public void Attributes_FormulaDerivatedUnspecified_UniqueAttribute()
+        {
+            var input = "fullName varchar(50) %\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("fullName", attribute.Label);
+            Assert.IsTrue(attribute.IsDerivated);
+            Assert.AreEqual(string.Empty, attribute.DerivatedFormula);
+        }
+
 
     }
 }
