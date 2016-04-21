@@ -17,6 +17,15 @@ namespace ERMine.Core.Modeling.Factory
             return relationship;
         }
 
+        public Relationship Create(string label, IEnumerable<Tuple<string, Cardinality>> members)
+        {
+            var relationship = new Relationship(members.Count());
+            relationship.Label = label;
+            foreach (var item in members)
+                relationship.Add(new Entity(item.Item1), item.Item2);
+            return relationship;
+        }
+
         public Relationship Create(string label, string firstEntity, Cardinality firstCardinality, string secondEntity, Cardinality secondCardinality)
         {
             var tuples = new List<Tuple<Entity, Cardinality>>();

@@ -14,7 +14,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         public void Relationship_Binary_WithLabel()
         {
             var input = "[Student] +-follow-* [Course]";
-            var relationship = RelationshipParser.Relationship.Parse(input);
+            var relationship = RelationshipBinaryParser.Relationship.Parse(input);
 
             Assert.AreEqual("follow", relationship.Label);
             Assert.AreEqual("Student", relationship.Entities.ElementAt(0).Label);
@@ -27,7 +27,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         public void Relationship_Binary_WithoutLabel()
         {
             var input = "[Post]*--1[Comment]";
-            var relationship = RelationshipParser.Relationship.Parse(input);
+            var relationship = RelationshipBinaryParser.Relationship.Parse(input);
 
             Assert.AreEqual(null, relationship.Label);
             Assert.AreEqual("Post", relationship.Entities.ElementAt(0).Label);
@@ -40,11 +40,26 @@ namespace ERMine.UnitTesting.Core.Parsing
         public void Relationship_Binary_Self()
         {
             var input = "[Employee] *-manages-1 [Employee]";
-            var relationship = RelationshipParser.Relationship.Parse(input);
+            var relationship = RelationshipBinaryParser.Relationship.Parse(input);
 
             Assert.AreEqual("Employee", relationship.Entities.ElementAt(0).Label);
             Assert.AreEqual("Employee", relationship.Entities.ElementAt(1).Label);
             Assert.IsTrue(relationship.Entities.ElementAt(0).Label == relationship.Entities.ElementAt(1).Label);
+        }
+
+        [TestMethod]
+        public void Relationship_Ternary_Simple()
+        {
+            var input = "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+ ";
+            var relationship = RelationshipTernaryParser.Relationship.Parse(input);
+
+            Assert.AreEqual("Vendor", relationship.Entities.ElementAt(0).Label);
+            Assert.AreEqual(Cardinality.ZeroOrMore, relationship.Cardinality.ElementAt(0));
+            Assert.AreEqual("Part", relationship.Entities.ElementAt(1).Label);
+            Assert.AreEqual(Cardinality.OneOrMore, relationship.Cardinality.ElementAt(1));
+            Assert.AreEqual("Warehouse", relationship.Entities.ElementAt(2).Label);
+            Assert.AreEqual(Cardinality.OneOrMore, relationship.Cardinality.ElementAt(2));
+
         }
 
     }

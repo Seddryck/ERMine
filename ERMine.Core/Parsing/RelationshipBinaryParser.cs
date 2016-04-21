@@ -8,7 +8,7 @@ using ERMine.Core.Modeling.Factory;
 
 namespace ERMine.Core.Parsing
 {
-    static class RelationshipParser
+    static class RelationshipBinaryParser
     {
         readonly static Parser<Cardinality> Cardinality =
         (

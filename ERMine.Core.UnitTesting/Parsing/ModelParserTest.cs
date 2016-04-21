@@ -82,6 +82,94 @@ namespace ERMine.UnitTesting.Core.Parsing
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
             Assert.AreEqual(3, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
+
+        }
+
+        [TestMethod]
+        public void Parse_TwoRelationships_Label()
+        {
+            var input = "[Student] *-isfriend-* [Student]" + "\r\n";
+            input += "[Student] *-follow-* [Course]\r\n";
+
+            var entityRelationships = ModelParser.Relationships.Parse(input);
+
+            Assert.AreEqual(2, entityRelationships.Count());
+
+        }
+
+        [TestMethod]
+        public void Parse_OneTernary_Label()
+        {
+            var input = "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+\r\n";
+
+            var entityRelationships = ModelParser.Relationships.Parse(input);
+
+            Assert.AreEqual(1, entityRelationships.Count());
+
+        }
+
+        [TestMethod]
+        public void Parse_ThreeRelationships_Label()
+        {
+            var input = "[Student] *-isfriend-* [Student]" + "\r\n";
+            input += "[Student] *-follow-* [Course]\r\n";
+            input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+\r\n";
+
+            var entityRelationships = ModelParser.Relationships.Parse(input);
+
+            Assert.AreEqual(3, entityRelationships.Count());
+            Assert.AreEqual(3, entityRelationships.Count(r => r is Relationship));
+
+        }
+
+        [TestMethod]
+        public void Parse_ThreeEntitiesAndTernaryRelationship_Label()
+        {
+            var input = "[Warehouse]" + "\r\n";
+            input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+" + "\r\n";
+            input += "[Part]" + "\r\n";
+            input += "[Vendor]" + "\r\n";
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(3, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
+
+        }
+
+        [TestMethod]
+        public void Parse_TwiceThreeRelationship_Label()
+        {
+            var input = "[Warehouse]" + "\r\n";
+            input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+" + "\r\n";
+            input += "[Part]" + "\r\n";
+            input += "[Vendor]" + "\r\n";
+            input += "[Student] *-isfriend-* [Student]" + "\r\n";
+            input += "[Student] *-follow-* [Course]\r\n";
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(3, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(3, entityRelationships.Count(r => r is Relationship));
+
+        }
+
+        [TestMethod]
+        public void Parse_TwiceThree2Relationship_Label()
+        {
+            var input = "[Warehouse]" + "\r\n";
+            input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+" + "\r\n";
+            input += "[Student] *-isfriend-* [Student]" + "\r\n";
+            input += "[Student] *-follow-* [Course]\r\n";
+            input += "[Part]" + "\r\n";
+            input += "[Vendor]" + "\r\n";
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(3, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(3, entityRelationships.Count(r => r is Relationship));
 
         }
     }

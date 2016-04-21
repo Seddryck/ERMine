@@ -56,7 +56,8 @@
     <Compile Include="Modeling\Repository\ModelRepository.cs" />
     <Compile Include="Parsing\ModelParser.cs" />
     <Compile Include="Parsing\Parser.cs" />
-    <Compile Include="Parsing\RelationshipParser.cs" />
+    <Compile Include="Parsing\RelationshipTernaryParser.cs" />
+    <Compile Include="Parsing\RelationshipBinaryParser.cs" />
     <Compile Include="Parsing\EntityParser.cs" />
     <Compile Include="Parsing\Grammar.cs" />
     <Compile Include="Modeling\Factory\RelationshipFactory.cs" />
