@@ -272,7 +272,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         }
 
         [TestMethod]
-        public void Attributes_Derivated_UniqueAttribute()
+        public void Attributes_Derived_UniqueAttribute()
         {
             var input = "Age int%\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -287,7 +287,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         }
 
         [TestMethod]
-        public void Attributes_DerivatedSpace_UniqueAttribute()
+        public void Attributes_DerivedSpace_UniqueAttribute()
         {
             var input = "Age int %\r\n";
             var attributes = AttributeParser.Attributes.Parse(input);
@@ -299,7 +299,84 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.IsFalse(attribute.IsNullable);
             Assert.IsFalse(attribute.IsMultiValued);
             Assert.IsTrue(attribute.IsDerived);
+            Assert.IsFalse(attribute.IsImmutable);
         }
+
+        [TestMethod]
+        public void Attributes_Immutable_UniqueAttribute()
+        {
+            var input = "Age int^\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsFalse(attribute.IsDerived);
+            Assert.IsTrue(attribute.IsImmutable);
+        }
+
+        [TestMethod]
+        public void Attributes_ImmutablSpace_UniqueAttribute()
+        {
+            var input = "Age int ^\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsFalse(attribute.IsDerived);
+            Assert.IsTrue(attribute.IsImmutable);
+        }
+
+        [TestMethod]
+        public void Attributes_FormulaDerived_UniqueAttribute()
+        {
+            var input = "fullName varchar(50){% firstName + ' ' + lastName %}\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("fullName", attribute.Label);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsTrue(attribute.IsDerived);
+            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivedFormula);
+        }
+
+        [TestMethod]
+        public void Attributes_FormulaDerivedSpace_UniqueAttribute()
+        {
+            var input = "fullName varchar(50) {% firstName + ' ' + lastName %}\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("fullName", attribute.Label);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsMultiValued);
+            Assert.IsTrue(attribute.IsDerived);
+            Assert.AreEqual("firstName + ' ' + lastName", attribute.DerivedFormula);
+        }
+
+        [TestMethod]
+        public void Attributes_FormulaDerivedUnspecified_UniqueAttribute()
+        {
+            var input = "fullName varchar(50) %\r\n";
+            var attributes = AttributeParser.Attributes.Parse(input);
+            Assert.AreEqual(attributes.Count(), 1);
+
+            var attribute = attributes.ElementAt(0);
+            Assert.AreEqual("fullName", attribute.Label);
+            Assert.IsTrue(attribute.IsDerived);
+            Assert.AreEqual(string.Empty, attribute.DerivedFormula);
+        }
+
 
     }
 }
