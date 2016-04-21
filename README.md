@@ -43,11 +43,15 @@ Derivated attributes are noted with a percentage (%).
 
 # Relationships
 
-Currently, ERMine supports unary and binary relationships
+Currently, ERMine supports unary, binary and ternary relationships
 
-*first_entity_name* [ ? | 1 | * | + ] - *ralationship_name* - [ ? | 1 | * | + ] *second_entity_name*
+*first_entity_name* [ ? | 1 | * | + ] - *relationship_name* - [ ? | 1 | * | + ] *second_entity_name*
 
 for unary relationships the name of the first and second entities must be identical.
+
+Ternary relationships are noted differently
+
+*relationship_name* *first_entity_name* [ ? | 1 | * | + ] *second_entity_name* [ ? | 1 | * | + ] *third_entity_name* [ ? | 1 | * | + ]
 
 ## Cardinalities
 
