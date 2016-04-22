@@ -59,9 +59,9 @@ Ternary relationships are noted differently
 
 ## Cardinalities
 
-* ```?``` stands for O..1
+* ```?``` stands for 0..1
 * ```1``` stands for 1..1
-* ```*``` stands for O..*
+* ```*``` stands for 0..*
 * ```+``` stands for 1..n
 
 **Expl:**
