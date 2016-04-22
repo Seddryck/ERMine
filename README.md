@@ -21,7 +21,7 @@ The name of an entity must be written between brackets:
 
 Attributes must follow the name of the entity
 
-[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [^] [ # ] [ % ] [{% *derivated_formula* %}]
+[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [^] [ # ] [ % ] [{% *derived_formula* %}]
 
 **Expl:**
 
@@ -31,7 +31,7 @@ Attributes must follow the name of the entity
 * ``` * customerNr  char(10)``` attribute *customerNr* is a *char(10)* and is part of the primary key
 * ``` lastName varchar(50)^ ``` attribute *lastName* is a *varchar(50)* and is immutable
 * ``` address varchar(250) # ``` attribute *address* is a *varchar(250)* and must support multiple values
-* ``` fullName varchar(250) {% firstName + ' ' + lastName %} ``` attribute *fullName* is derivated and the formula is *firstName + ' ' + lastName*
+* ``` fullName varchar(250) {% firstName + ' ' + lastName %} ``` attribute *fullName* is derived and the formula is *firstName + ' ' + lastName*
 
 ### Before the name of the attribute
 Primary key is noted with a star (*). An alternative notation is "PK".
@@ -66,6 +66,7 @@ Ternary relationships are noted differently
 
 **Expl:**
 
-* ``` [Customer] +-owns-1 [Account] ```
-* ``` [City] 1-located-* [Country] ```
+* ``` [Customer] +-owns-1 [Account] ``` a *customer* has one or more *accounts* and each *account* belongs to exactly one *customer*
+* ``` [City] 1-located-* [Country] ``` a *city* is located in excatly one *country* and a *country* incorporates zero or n cities
+* -deal- [Vendor]+ [Customer]+ [Location]1  a deal involves many vendors and customers in a unique location.
 
