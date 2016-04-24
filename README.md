@@ -21,13 +21,14 @@ The name of an entity must be written between brackets:
 
 Attributes must follow the name of the entity
 
-[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL ] [^] [ # ] [ % ] [{% *derived_formula* %}]
+[[ * | PK ] | [ ~ | PPK ]] *attribute_name* [ *sql-type* ] [ ? | NULL | ?? | SPARSE] [^ | IMMUTABLE] [ # | MV ] [ % | CALC ] [{% *derived_formula* %}]
 
 **Expl:**
 
 * ``` firstName ``` attribute *firstName* exists
 * ``` firstName varchar(50) ``` attribute *firstName* is a *varchar(50)*
-* ``` email varchar(50)? ``` attribute *email* is a *varchar(50)* and is nullable
+* ``` email varchar(120)? ``` attribute *email* is a *varchar(120)* and is nullable
+* ``` email varchar(120)?? ``` attribute *email* is a *varchar(120)* and is sparse
 * ``` * customerNr  char(10)``` attribute *customerNr* is a *char(10)* and is part of the primary key
 * ``` lastName varchar(50)^ ``` attribute *lastName* is a *varchar(50)* and is immutable
 * ``` address varchar(250) # ``` attribute *address* is a *varchar(250)* and must support multiple values
@@ -38,7 +39,8 @@ Primary key is noted with a star (*). An alternative notation is "PK".
 Partial keys are noted with a tilt (~). An alternative notation is "PPK".
 ### After the name of the attribute
 The sql-type of the attribute must follow the name of the attribute.
-Nullable attributes must postfix the sql-type with an interrogation point (?). An alternative notation is "NULL".
+Nullable attributes must postfix the sql-type with an question mark (?). An alternative notation is "NULL".
+Sparse attributes must postfix the sql-type with an question mark (??). An alternative notation is "SPARSE".
 Immutable attributes must postfix the sql-type with a circumflex accent (^). An alternative is the notation "IMMUTABLE"
 Multivalued attributes are noted with a cardinal (#). An alternative is the notation "MV"
 Derivated attributes are noted with a percentage (%). An alternative is the notation "CALC"
@@ -47,13 +49,11 @@ Formula for implementation of derivated attribyes must be specified between the 
 
 # Relationships
 
-Currently, ERMine supports unary, binary and ternary relationships
-
 *first_entity_name* [ ? | 1 | * | + ] - *relationship_name* - [ ? | 1 | * | + ] *second_entity_name*
 
 for unary relationships the name of the first and second entities must be identical.
 
-Ternary relationships are noted differently
+Ternary (or more) relationships are noted differently
 
 *relationship_name* *first_entity_name* [ ? | 1 | * | + ] *second_entity_name* [ ? | 1 | * | + ] *third_entity_name* [ ? | 1 | * | + ]
 

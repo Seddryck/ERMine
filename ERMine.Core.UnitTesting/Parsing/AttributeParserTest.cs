@@ -80,6 +80,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Age", attribute.Label);
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsTrue(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsSparse);
         }
 
         [TestMethod]
@@ -91,6 +92,31 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Age", attribute.Label);
             Assert.AreEqual("int", attribute.DataType);
             Assert.IsTrue(attribute.IsNullable);
+            Assert.IsFalse(attribute.IsSparse);
+        }
+
+        [TestMethod]
+        public void Attribute_WithDataTypeSparse_LabelAndDataTypeAndNullable()
+        {
+            var input = "Age int??";
+            var attribute = AttributeParser.Attribute.Parse(input);
+
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsSparse);
+        }
+
+        [TestMethod]
+        public void Attribute_WithDataTypeSpaceSparse_LabelAndDataTypeAndNullable()
+        {
+            var input = "Age int ?? ";
+            var attribute = AttributeParser.Attribute.Parse(input);
+
+            Assert.AreEqual("Age", attribute.Label);
+            Assert.AreEqual("int", attribute.DataType);
+            Assert.IsFalse(attribute.IsNullable);
+            Assert.IsTrue(attribute.IsSparse);
         }
 
         [TestMethod]
