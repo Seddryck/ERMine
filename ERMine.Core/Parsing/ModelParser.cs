@@ -10,31 +10,25 @@ namespace ERMine.Core.Parsing
 {
     static class ModelParser
     {
-        public readonly static Parser<IEnumerable<IEntityRelationship>> Relationships =
+        public readonly static Parser<IEntityRelationship> Relationship =
         (
-            from binaryRelationships in RelationshipBinaryParser.Relationship.Many()
-            from ternaryRelationships in RelationshipTernaryParser.Relationship.Many()
-            select binaryRelationships
-                        .Union(ternaryRelationships)
+            from relationship in RelationshipBinaryParser.Relationship.Or(RelationshipNAryParser.Relationship)
+            select relationship
         );
 
-        public readonly static Parser<IEnumerable<IEntityRelationship>> Entities =
+        public readonly static Parser<IEntityRelationship> EntityRelationship =
         (
-            from entities in EntityParser.Entity.Many()
-            select entities
-        );
-
-        readonly static Parser<IEnumerable<IEntityRelationship>> EntityRelationship =
-        (
-            from relationships in Relationships.Many()
-            from entity in EntityParser.Entity.Optional()
-            select entity.IsDefined ? relationships.SelectMany(r => r).Union(Enumerable.Repeat((IEntityRelationship) entity.GetOrDefault(), 1)) : relationships.SelectMany(r => r)
+            from entityRelationship in Grammar.AsmToken(Relationship).Or(EntityParser.Entity).Or(AttributeParser.Attribute)
+            from lineTerminator in Parse.LineTerminator.XMany()
+            select entityRelationship
         );
 
         public readonly static Parser<IEnumerable<IEntityRelationship>> EntityRelationships =
         (
-            from members in EntityRelationship.Many().End()
-            select members.SelectMany(x => x)
+            from members in EntityRelationship.XMany().End()
+            select members
         );
+
+        
     }
 }

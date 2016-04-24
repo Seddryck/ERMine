@@ -50,8 +50,8 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void Relationship_Ternary_Simple()
         {
-            var input = "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+ ";
-            var relationship = RelationshipTernaryParser.Relationship.Parse(input);
+            var input = "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+";
+            var relationship = RelationshipNAryParser.Relationship.Parse(input);
 
             Assert.AreEqual("Vendor", relationship.Entities.ElementAt(0).Label);
             Assert.AreEqual(Cardinality.ZeroOrMore, relationship.Cardinality.ElementAt(0));
@@ -60,6 +60,28 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Warehouse", relationship.Entities.ElementAt(2).Label);
             Assert.AreEqual(Cardinality.OneOrMore, relationship.Cardinality.ElementAt(2));
 
+        }
+
+        [TestMethod]
+        public void Relationship_BinaryAsNAry_Simple()
+        {
+            var input = "-has- [Post]* [Comment]1";
+            var relationship = RelationshipNAryParser.Relationship.Parse(input);
+
+            Assert.AreEqual("Post", relationship.Entities.ElementAt(0).Label);
+            Assert.AreEqual(Cardinality.ZeroOrMore, relationship.Cardinality.ElementAt(0));
+            Assert.AreEqual("Comment", relationship.Entities.ElementAt(1).Label);
+            Assert.AreEqual(Cardinality.ExactyOne, relationship.Cardinality.ElementAt(1));
+        }
+
+
+        [TestMethod]
+        public void Relationship_5ary_Simple()
+        {
+            var input = "-has- [Employee]* [Comment]1 [Date]1 [Witness]* [Scope]?";
+            var relationship = RelationshipNAryParser.Relationship.Parse(input);
+
+            Assert.AreEqual(5, relationship.Entities.Count());
         }
 
     }

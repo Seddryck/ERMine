@@ -11,3 +11,9 @@ Email varchar(50)?
 Title varchar(255)
 Credit int
 
+[Evaluation]
+~ CourseCode char(10)
+~ StudentNr char(10)
+~ EvaluationNumber int
+Score int
+Weight int

@@ -12,14 +12,8 @@ namespace ERMine.Core.Parsing
     {
         public readonly static Parser<Entity> Entity =
         (
-            from label in Grammar.BracketTextual
-            from attributes in AttributeParser.Attributes.Optional()
-            select new EntityFactory().Create(label, attributes.Get())
-        );
-
-        public readonly static Parser<IEnumerable<Entity>> Entities =
-        (
-            Entity.Many()
+            from label in Grammar.AsmToken(Grammar.BracketTextual)
+            select new EntityFactory().Create(label)
         );
     }
 }
