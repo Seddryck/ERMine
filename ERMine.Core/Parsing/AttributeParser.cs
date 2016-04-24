@@ -10,10 +10,11 @@ namespace ERMine.Core.Parsing
 {
     static class AttributeParser
     {
+
         public readonly static Parser<Attribute> Attribute =
         (
             from keyType in Keyword.IsPartOfKey.Optional()
-            from label in Grammar.Textual
+            from label in Grammar.Textual.Token()
             from dataType in DataType.Optional()
             from isNullable in Keyword.IsNullable.Optional()
             from isImmutable in Keyword.IsImmutable.Optional()
@@ -54,11 +55,6 @@ namespace ERMine.Core.Parsing
             from precision in Parse.Number
             from close in Parse.Char(')')
             select string.Format("({0},{1})", length, precision)
-        );
-
-        public readonly static Parser<IEnumerable<Attribute>> Attributes =
-        (
-            Attribute.Many()
         );
     }
 }

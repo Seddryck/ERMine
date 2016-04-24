@@ -57,7 +57,7 @@
     <Compile Include="Parsing\Formula.cs" />
     <Compile Include="Parsing\ModelParser.cs" />
     <Compile Include="Parsing\Parser.cs" />
-    <Compile Include="Parsing\RelationshipTernaryParser.cs" />
+    <Compile Include="Parsing\RelationshipNAryParser.cs" />
     <Compile Include="Parsing\RelationshipBinaryParser.cs" />
     <Compile Include="Parsing\EntityParser.cs" />
     <Compile Include="Parsing\Grammar.cs" />

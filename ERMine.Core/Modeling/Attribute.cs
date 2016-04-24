@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERMine.Core.Modeling
 {
-    public class Attribute
+    public class Attribute : IEntityRelationship
     {
         public string Label { get; set; }
         public string DataType { get; set; }

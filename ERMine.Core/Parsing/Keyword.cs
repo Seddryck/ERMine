@@ -16,5 +16,15 @@ namespace ERMine.Core.Parsing
         public static readonly Parser<string> IsMultiValued = Parse.String("#").Text().Or(Parse.String("#").Text().Token().Or(Parse.String("MV").Text()));
         public static readonly Parser<string> IsDerived = Parse.String("%").Text().Or(Parse.String("%").Text().Token().Or(Parse.String("CALC").Text()));
         public static readonly Parser<string> IsImmutable = Parse.String("^").Text().Or(Parse.String("^").Text().Token().Or(Parse.String("IMMUTABLE").Text()));
+
+        public readonly static Parser<Cardinality> Cardinality =
+        (
+            from cardinality in Parse.Char('*').Return(Modeling.Cardinality.ZeroOrMore)
+                                .Or(Parse.Char('?').Return(Modeling.Cardinality.ZeroOrOne)
+                                .Or(Parse.Char('1').Return(Modeling.Cardinality.ExactyOne)
+                                .Or(Parse.Char('+').Return(Modeling.Cardinality.OneOrMore)
+                                )))
+            select cardinality
+        );
     }
 }
