@@ -27,5 +27,7 @@ namespace ERMine.Core.Modeling
         public bool IsMultiValued { get; set; }
         public bool IsDerived { get; set; }
         public string DerivedFormula { get; set; }
+        public bool IsDefault { get; set; }
+        public string DefaultFormula { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace ERMine.Core.Parsing
             from isMultiValued in Keyword.IsMultiValued.Optional()
             from isDerived in Keyword.IsDerived.Optional()
             from formulaDerived in Formula.Derived.Optional()
+            from isDefault in Keyword.IsDefault.Optional()
+            from formulaDefault in Formula.Default.Optional()
             select new Attribute() { Label = label
                 , DataType = dataType.GetOrDefault()
                 , IsNullable = isNullable.IsDefined
@@ -31,6 +33,8 @@ namespace ERMine.Core.Parsing
                 , IsMultiValued = isMultiValued.IsDefined
                 , IsDerived = isDerived.IsDefined || formulaDerived.IsDefined
                 , DerivedFormula = formulaDerived.GetOrElse(string.Empty).Trim()
+                , IsDefault = isDefault.IsDefined || formulaDefault.IsDefined
+                , DefaultFormula = formulaDefault.GetOrElse(string.Empty).Trim()
             }
         );
 
