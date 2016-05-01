@@ -71,5 +71,6 @@ Ternary (or more) relationships are noted differently
 
 * ``` [Customer] +-owns-1 [Account] ``` a *customer* has one or more *accounts* and each *account* belongs to exactly one *customer*
 * ``` [City] 1-located-* [Country] ``` a *city* is located in excatly one *country* and a *country* incorporates zero or n cities
-* -deal- [Vendor]+ [Customer]+ [Location]1  a deal involves many vendors and customers in a unique location.
+* ```-located- [City]1 [Country]* ``` a *city* is located in excatly one *country* and a *country* incorporates zero or n cities (alternate notation)
+* ``` -deal- [Vendor]+ [Customer]+ [Location]1 ``` a deal involves many vendors and customers in a unique location.
 
