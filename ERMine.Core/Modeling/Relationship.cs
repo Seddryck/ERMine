@@ -13,6 +13,22 @@ namespace ERMine.Core.Modeling
         protected List<Cardinality> cardinalities;
         public string Label { get; internal set; }
 
+        public string Kind
+        {
+            get
+            {
+                var membersCount = entities.Distinct().Count();
+                switch (membersCount)
+                {
+                    case 0: throw new InvalidOperationException();
+                    case 1: return "Unary";
+                    case 2: return "Binary";
+                    case 3: return "Ternary";
+                    default: return string.Format("{0}-nary", membersCount);
+                }
+            }
+        }
+
         internal Relationship(int count)
         {
             entities = new List<Entity>(count);

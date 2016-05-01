@@ -10,7 +10,7 @@ namespace ERMine.Core.Modeling
     {
         public string Label { get; private set; }
         public Key Key { get; protected set; }
-        public IList<Attribute> Attributes { get; private set; }
+        public List<Attribute> Attributes { get; private set; }
 
         internal Entity(string label)
         {
@@ -34,15 +34,7 @@ namespace ERMine.Core.Modeling
         {
             get { return false; }
         }
-
-        public void Define(IEnumerable<Attribute> attributes)
-        {
-            if (Attributes == null || Attributes.Count==0)
-                Attributes = attributes.ToList();
-            else
-                throw new InvalidOperationException();
-        }
-
+        
         #region IEquatable
 
         public bool Equals(Entity other)

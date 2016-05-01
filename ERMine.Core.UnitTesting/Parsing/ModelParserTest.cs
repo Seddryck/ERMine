@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using ERMine.Core.Parsing;
 using Sprache;
@@ -21,8 +20,9 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(1, entityRelationships.Count());
-            Assert.AreEqual(4, (entityRelationships.ElementAt(0) as Entity).Attributes.Count());
+            Assert.AreEqual(5, entityRelationships.Count());
+            Assert.AreEqual(1, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(4, entityRelationships.Count(a => a is Attribute));
 
         }
 
@@ -35,11 +35,14 @@ namespace ERMine.UnitTesting.Core.Parsing
             input += "FirstName varchar(50)" + "\r\n";
             input += "Email varchar(50)?" + "\r\n";
             input += "\r\n";
-            input += "[Student] *-follow-* [Course]\r\n";
+            input += "[Student] *-follow-* [Course]";
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(2, entityRelationships.Count());
+            Assert.AreEqual(6, entityRelationships.Count());
+            Assert.AreEqual(1, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(4, entityRelationships.Count(a => a is Attribute));
+            Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
 
         }
 
@@ -60,7 +63,10 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(3, entityRelationships.Count());
+            Assert.AreEqual(10, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(7, entityRelationships.Count(a => a is Attribute));
+            Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
 
         }
 
@@ -75,14 +81,15 @@ namespace ERMine.UnitTesting.Core.Parsing
             input += "\r\n";
             input += "[Course]" + "\r\n";
             input += "* CourseCode char(10)" + "\r\n";
-            input += "Title varchar(255)" + "\r\n";
+            input += "Title varchar(255)#" + "\r\n";
             input += "Credit int" + "\r\n";
             input += "[Student] *-follow-* [Course]\r\n";
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(3, entityRelationships.Count());
+            Assert.AreEqual(10, entityRelationships.Count());
             Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(7, entityRelationships.Count(a => a is Attribute));
             Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
 
         }
@@ -93,9 +100,10 @@ namespace ERMine.UnitTesting.Core.Parsing
             var input = "[Student] *-isfriend-* [Student]" + "\r\n";
             input += "[Student] *-follow-* [Course]\r\n";
 
-            var entityRelationships = ModelParser.Relationships.Parse(input);
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
             Assert.AreEqual(2, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count(r => r is Relationship));
 
         }
 
@@ -103,11 +111,12 @@ namespace ERMine.UnitTesting.Core.Parsing
         public void Parse_OneTernary_Label()
         {
             var input = "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+\r\n";
+            input += "[Student] *-follow-* [Course]";
 
-            var entityRelationships = ModelParser.Relationships.Parse(input);
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(1, entityRelationships.Count());
-
+            Assert.AreEqual(2, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count(r => r is Relationship));
         }
 
         [TestMethod]
@@ -115,9 +124,9 @@ namespace ERMine.UnitTesting.Core.Parsing
         {
             var input = "[Student] *-isfriend-* [Student]" + "\r\n";
             input += "[Student] *-follow-* [Course]\r\n";
-            input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+\r\n";
+            input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+";
 
-            var entityRelationships = ModelParser.Relationships.Parse(input);
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
             Assert.AreEqual(3, entityRelationships.Count());
             Assert.AreEqual(3, entityRelationships.Count(r => r is Relationship));
@@ -161,10 +170,11 @@ namespace ERMine.UnitTesting.Core.Parsing
         {
             var input = "[Warehouse]" + "\r\n";
             input += "-SupplySchedule- [Vendor]* [Part]+ [Warehouse]+" + "\r\n";
+            input += "\r\n";
             input += "[Student] *-isfriend-* [Student]" + "\r\n";
             input += "[Student] *-follow-* [Course]\r\n";
             input += "[Part]" + "\r\n";
-            input += "[Vendor]" + "\r\n";
+            input += "[Vendor]";
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 

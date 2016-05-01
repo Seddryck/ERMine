@@ -10,24 +10,31 @@ namespace ERMine.Core.Parsing
 {
     static class AttributeParser
     {
+
         public readonly static Parser<Attribute> Attribute =
         (
             from keyType in Keyword.IsPartOfKey.Optional()
-            from label in Grammar.Textual
+            from label in Grammar.Textual.Token()
             from dataType in DataType.Optional()
+            from isSparse in Keyword.IsSparse.Optional()
             from isNullable in Keyword.IsNullable.Optional()
             from isImmutable in Keyword.IsImmutable.Optional()
             from isMultiValued in Keyword.IsMultiValued.Optional()
             from isDerived in Keyword.IsDerived.Optional()
             from formulaDerived in Formula.Derived.Optional()
+            from isDefault in Keyword.IsDefault.Optional()
+            from formulaDefault in Formula.Default.Optional()
             select new Attribute() { Label = label
                 , DataType = dataType.GetOrDefault()
                 , IsNullable = isNullable.IsDefined
+                , IsSparse = isSparse.IsDefined
                 , Key = keyType.IsDefined ? keyType.Get() : KeyType.None
                 , IsImmutable = isImmutable.IsDefined
                 , IsMultiValued = isMultiValued.IsDefined
                 , IsDerived = isDerived.IsDefined || formulaDerived.IsDefined
                 , DerivedFormula = formulaDerived.GetOrElse(string.Empty).Trim()
+                , IsDefault = isDefault.IsDefined || formulaDefault.IsDefined
+                , DefaultFormula = formulaDefault.GetOrElse(string.Empty).Trim()
             }
         );
 
@@ -54,11 +61,6 @@ namespace ERMine.Core.Parsing
             from precision in Parse.Number
             from close in Parse.Char(')')
             select string.Format("({0},{1})", length, precision)
-        );
-
-        public readonly static Parser<IEnumerable<Attribute>> Attributes =
-        (
-            Attribute.Many()
         );
     }
 }
