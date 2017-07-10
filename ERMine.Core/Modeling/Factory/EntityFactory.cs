@@ -19,14 +19,15 @@ namespace ERMine.Core.Modeling.Factory
 
         public Entity Create(Entity entity, Attribute attribute)
         {
-            entity.Attributes.Add(attribute);
+            var attributes = new List<Attribute>(entity.Attributes);
+            attributes.Add(attribute);
 
-            if (entity.Attributes.Any(a => a.IsPartOfPrimaryKey))
-                return new Entity(entity.Label, entity.Attributes);
-            else if (entity.Attributes.Any(a => a.IsPartOfPartialKey))
-                return new WeakEntity(entity.Label, entity.Attributes);
+            if (attributes.Any(a => a.IsPartOfPrimaryKey))
+                return new Entity(entity.Label, attributes);
+            else if (attributes.Any(a => a.IsPartOfPartialKey))
+                return new WeakEntity(entity.Label, attributes);
             else
-                return new Entity(entity.Label, entity.Attributes);
+                return new Entity(entity.Label, attributes);
         }
 
         public Entity Create(string label)
