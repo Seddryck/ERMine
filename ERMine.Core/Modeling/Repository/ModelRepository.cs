@@ -10,62 +10,57 @@ namespace ERMine.Core.Modeling.Repository
     public class ModelRepository
     {
         private readonly Model model = new Model();
-        protected Entity CurrentEntity = null;
+        protected IEntityRelationship CurrentObject = null;
 
         public Model Get()
         {
             return model;
         }
 
-        public Entity MergeEntity(Entity entity)
+        public void MergeEntity(Entity entity)
         {
             if (!model.Entities.Contains(entity))
-            {
                 model.Entities.Add(entity);
-                CurrentEntity = entity;
-                return entity;
+            else
+            {
+                var existingEntity = model.Entities.Single(e => e.Label == entity.Label);
+                if (existingEntity.Attributes.Count==0)
+                {
+                    model.Entities.Remove(existingEntity);
+                    model.Entities.Add(entity);
+                }
             }
-                
-
-            var existingEntity = model.Entities.FirstOrDefault(e => e.Label == entity.Label);
-            if (existingEntity==null)
-                throw new InvalidOperationException();
-
-            CurrentEntity = existingEntity;
-            return existingEntity;
         }
 
-        public Relationship MergeRelationship(Relationship relationship)
+        public void MergeRelationship(Relationship relationship)
         {
-            CurrentEntity = null;
+            CurrentObject = null;
 
             var newRelationship = new Relationship(relationship.Entities.Count());
             newRelationship.Label = relationship.Label;
             foreach (var member in relationship.Members)
             {
-                var entity = MergeEntity(member.Item1);
-                newRelationship.Add(entity, member.Item2);
+                MergeEntity(member.Item1);
+                newRelationship.Add(member.Item1, member.Item2);
             }
 
             model.Relationships.Add(newRelationship);
-            return newRelationship;
         }
 
-        public Entity MergeAttribute(Attribute attribute)   
+
+        public void MergeDomain(Domain domain)
         {
-            if (CurrentEntity == null)
-                throw new InvalidOperationException(String.Format("Can't determine the entity that the attribute '{0}' belongs to.", attribute.Label));
-
-            var factory = new EntityFactory();
-
-            var newEntity = factory.Create(CurrentEntity, attribute);
-            CurrentEntity = newEntity;
-
-            var existingEntity = model.Entities.Single(e => e.Label == CurrentEntity.Label);
-            model.Entities.Remove(existingEntity);
-            model.Entities.Add(CurrentEntity);
-
-            return CurrentEntity;
+            if (!model.Domains.Contains(domain))
+                model.Domains.Add(domain);
+            else
+            {
+                var existingDomain = model.Domains.Single(d => d.Label == domain.Label);
+                if (existingDomain.Values.Count == 0)
+                {
+                    model.Domains.Remove(existingDomain);
+                    model.Domains.Add(domain);
+                }
+            }
         }
 
         public void Merge(IEntityRelationship entityRelationship)
@@ -74,8 +69,8 @@ namespace ERMine.Core.Modeling.Repository
                 MergeEntity(entityRelationship as Entity);
             else if (entityRelationship is Relationship)
                 MergeRelationship(entityRelationship as Relationship);
-            else if (entityRelationship is Attribute)
-                MergeAttribute(entityRelationship as Attribute);
+            else if (entityRelationship is Domain)
+                MergeDomain(entityRelationship as Domain);
             else
                 throw new ArgumentOutOfRangeException();
         }

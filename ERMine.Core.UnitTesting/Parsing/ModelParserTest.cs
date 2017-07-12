@@ -17,12 +17,97 @@ namespace ERMine.UnitTesting.Core.Parsing
             input += "LastName varchar(50)" + "\r\n";
             input += "FirstName varchar(50)" + "\r\n";
             input += "Email varchar(50)?";
+            input += "\r\n";
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(5, entityRelationships.Count());
+            Assert.AreEqual(1, entityRelationships.Count());
             Assert.AreEqual(1, entityRelationships.Count(e => e is Entity));
-            Assert.AreEqual(4, entityRelationships.Count(a => a is Attribute));
+            Assert.AreEqual(4, (entityRelationships.ElementAt(0) as Entity).Attributes.Count);
+
+        }
+
+        [TestMethod]
+        public void Parse_TwoEntities_Label()
+        {
+            var input = "[Student]" + "\r\n";
+            input += "*StudentNr char(10)" + "\r\n";
+            input += "\r\n";
+            input += "[Course]" + "\r\n";
+            input += "*CourseNr char(10)" + "\r\n";
+            input += "\r\n";
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(2, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(1, (entityRelationships.ElementAt(0) as Entity).Attributes.Count);
+            Assert.AreEqual(1, (entityRelationships.ElementAt(1) as Entity).Attributes.Count);
+
+        }
+
+        [TestMethod]
+        public void Parse_UniqueDomain_Label()
+        {
+            var input = "<WeekDay>" + "\r\n";
+            input += "Monday" + "\r\n";
+            input += "'Tuesday'" + "\r\n";
+            input += "Wednesday" + "\r\n";
+            input += "Thursday";
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(1, entityRelationships.Count());
+            Assert.AreEqual(1, entityRelationships.Count(d => d is Domain));
+            Assert.AreEqual(4, (entityRelationships.ElementAt(0) as Domain).Values.Count);
+
+        }
+
+        [TestMethod]
+        public void Parse_TwoDomains_Label()
+        {
+            var input = "<WeekDay>" + "\r\n";
+            input += "Monday" + "\r\n";
+            input += "'Tuesday'" + "\r\n";
+            input += "Wednesday" + "\r\n";
+            input += "Thursday" +"\r\n";
+            input += "Friday" + "\r\n";
+            input += "\r\n";
+            input += "<WeekendDay>" + "\r\n";
+            input += "Saturday" + "\r\n";
+            input += "'Sunday'" + "\r\n";
+
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(2, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count(d => d is Domain));
+            Assert.AreEqual(5, (entityRelationships.ElementAt(0) as Domain).Values.Count);
+            Assert.AreEqual(2, (entityRelationships.ElementAt(1) as Domain).Values.Count);
+
+        }
+
+        [TestMethod]
+        public void Parse_EntityAndDomain_Label()
+        {
+            var input = "";
+            input += "<Weekday>" + "\r\n";
+            input += "Monday" + "\r\n";
+            input += "Tuesday" + "\r\n";
+            input += "\r\n";
+            input += "[Student]" + "\r\n";
+            input += "*StudentNr char(10)" + "\r\n";
+            input += "LastName varchar(50)" + "\r\n";
+            input += "FirstName varchar(50)" + "\r\n";
+            input += "Email varchar(50)?" + "\r\n";
+            input += "\r\n";
+            
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(2, entityRelationships.Count());
+            Assert.AreEqual(1, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(1, entityRelationships.Count(d => d is Domain));
 
         }
 
@@ -39,9 +124,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(6, entityRelationships.Count());
+            Assert.AreEqual(2, entityRelationships.Count());
             Assert.AreEqual(1, entityRelationships.Count(e => e is Entity));
-            Assert.AreEqual(4, entityRelationships.Count(a => a is Attribute));
             Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
 
         }
@@ -56,6 +140,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             input += "Email varchar(50)?" + "\r\n";
             input += "\r\n";
             input += "[Student] *-follow-* [Course]\r\n";
+            input += "\r\n";
             input += "[Course]" + "\r\n";
             input += "* CourseCode char(10)" + "\r\n";
             input += "Title varchar(255)" + "\r\n";
@@ -63,9 +148,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(10, entityRelationships.Count());
+            Assert.AreEqual(3, entityRelationships.Count());
             Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
-            Assert.AreEqual(7, entityRelationships.Count(a => a is Attribute));
             Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
 
         }
@@ -87,9 +171,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var entityRelationships = ModelParser.EntityRelationships.Parse(input);
 
-            Assert.AreEqual(10, entityRelationships.Count());
+            Assert.AreEqual(3, entityRelationships.Count());
             Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
-            Assert.AreEqual(7, entityRelationships.Count(a => a is Attribute));
             Assert.AreEqual(1, entityRelationships.Count(r => r is Relationship));
 
         }
@@ -182,5 +265,6 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual(3, entityRelationships.Count(r => r is Relationship));
 
         }
+        
     }
 }

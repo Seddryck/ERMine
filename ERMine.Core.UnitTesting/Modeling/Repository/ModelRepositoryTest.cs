@@ -92,9 +92,10 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
 
             Assert.AreEqual(2, repository.Get().Entities.Count);
             Assert.AreEqual(1, repository.Get().Relationships.Count);
-            Assert.AreSame(repository.Get().Entities[0], repository.Get().Relationships[0].Entities.ElementAt(0));
-            Assert.AreSame(repository.Get().Entities[1], repository.Get().Relationships[0].Entities.ElementAt(1));
+            Assert.AreEqual(repository.Get().Entities[0], repository.Get().Relationships[0].Entities.ElementAt(0));
+            Assert.AreEqual(repository.Get().Entities[1], repository.Get().Relationships[0].Entities.ElementAt(1));
         }
+        
 
         [TestMethod]
         public void Merge_ThreeEntitiesAndTwoRelationship_Loaded()
@@ -137,5 +138,45 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
         //    Assert.AreEqual(3, repository.Get().Entities.Count);
         //    Assert.AreEqual(2, repository.Get().Relationships.Count);
         //}
+
+        [TestMethod]
+        public void Merge_Domain_Loaded()
+        {
+            var repository = new ModelRepository();
+
+            var domain = new Domain("Weekday");
+            repository.Merge(domain);
+
+            Assert.AreEqual(1, repository.Get().Domains.Count);
+        }
+
+        [TestMethod]
+        public void Merge_SameDomainTwice_LoadedOnce()
+        {
+            var repository = new ModelRepository();
+
+            for (int i = 0; i < 2; i++)
+            {
+                var domain = new Domain("Weekday");
+                repository.Merge(domain);
+            }
+
+            Assert.AreEqual(1, repository.Get().Domains.Count);
+        }
+
+
+        [TestMethod]
+        public void Merge_DistinctDomains_Loaded()
+        {
+            var repository = new ModelRepository();
+
+            for (int i = 0; i < 2; i++)
+            {
+                var domain = new Domain("Domain" + i.ToString());
+                repository.Merge(domain);
+            }
+
+            Assert.AreEqual(2, repository.Get().Domains.Count);
+        }
     }
 }

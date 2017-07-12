@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Modeling\Repository\ModelRepositoryTest.cs" />
     <Compile Include="Parsing\AttributeParserTest.cs" />
+    <Compile Include="Parsing\DomainParserTest.cs" />
     <Compile Include="Parsing\ModelParserTest.cs" />
     <Compile Include="Parsing\ParserTest.cs" />
     <Compile Include="Parsing\RelationshipParserTest.cs" />

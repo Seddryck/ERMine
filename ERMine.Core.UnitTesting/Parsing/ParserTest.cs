@@ -37,7 +37,9 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Evaluation", model.Entities[2].Label);
             Assert.IsTrue(model.Entities[2].IsWeak);
             Assert.AreEqual(5, model.Entities[2].Attributes.Count());
-
+            Assert.AreEqual(1, model.Domains.Count);
+            Assert.AreEqual("CourseType", model.Domains[0].Label);
+            Assert.AreEqual(2, model.Domains[0].Values.Count);
         }
     }
 }

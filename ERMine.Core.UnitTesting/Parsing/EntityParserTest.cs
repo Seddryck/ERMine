@@ -10,22 +10,22 @@ namespace ERMine.UnitTesting.Core.Parsing
     public class EntityParserTest
     {
         [TestMethod]
-        public void entity_OneWord_Label()
+        public void Entity_OneWord_Label()
         {
             var input = "[Student]";
             var entity = EntityParser.Entity.Parse(input);
 
-            Assert.AreEqual("Student", entity.Label);
+            Assert.AreEqual("Student", entity);
 
         }
 
         [TestMethod]
-        public void entity_SeveralWord_Label()
+        public void Entity_SeveralWord_Label()
         {
             var input = "[Student of University]";
             var entity = EntityParser.Entity.Parse(input);
 
-            Assert.AreEqual("Student of University", entity.Label);
+            Assert.AreEqual("Student of University", entity);
 
         }
         
