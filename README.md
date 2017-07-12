@@ -1,13 +1,14 @@
 # ERMine
 ERMine is a library to parse text files describing a conceptual Entity Relationship model and create an object representation of this model.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/037mxfssp1fr0y4r?svg=true)](https://ci.appveyor.com/project/CdricLCharlier/ermine) 
+[![Build status](https://ci.appveyor.com/api/projects/status/037mxfssp1fr0y4r?svg=true)](https://ci.appveyor.com/project/Seddryck/ermine) 
 ![Still maintained](https://img.shields.io/maintenance/yes/2017.svg)
 ![nuget](https://img.shields.io/nuget/v/ERMine.svg) 
 ![nuget pre](https://img.shields.io/nuget/vpre/ERMine.svg)
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Notation:
-# Entities
+# Notation:
+## Entities
 The name of an entity must be written between brackets:
 [ *entity_name* ]
 
@@ -17,7 +18,7 @@ The name of an entity must be written between brackets:
 * ``` [Date and Time] ```
 * ``` [Country] ```
 
-## Attributes 
+### Attributes 
 
 Attributes must follow the name of the entity
 
@@ -35,10 +36,10 @@ Attributes must follow the name of the entity
 * ``` fullName varchar(250) {% firstName + ' ' + lastName %} ``` attribute *fullName* is derived and the formula is *firstName + ' ' + lastName*
 * ``` category char(1) {='A'=} ``` attribute *category* has a default value equal to 'A'
 
-### Before the name of the attribute
+#### Before the name of the attribute
 Primary key is noted with a star (*). An alternative notation is "PK".
 Partial keys are noted with a tilt (~). An alternative notation is "PPK".
-### After the name of the attribute
+#### After the name of the attribute
 
 * The sql-type of the attribute must follow the name of the attribute.
 * Nullable attributes must postfix the sql-type with an question mark (?). An alternative notation is "NULL".
@@ -51,7 +52,7 @@ Partial keys are noted with a tilt (~). An alternative notation is "PPK".
   * Formula for implementation of default values must be specified between the curly braces and equal symbols ({= ... =})
 
 
-# Relationships
+## Relationships
 
 *first_entity_name* [ ? | 1 | * | + ] - *relationship_name* - [ ? | 1 | * | + ] *second_entity_name*
 
@@ -61,7 +62,7 @@ Ternary (or more) relationships are noted differently
 
 *relationship_name* *first_entity_name* [ ? | 1 | * | + ] *second_entity_name* [ ? | 1 | * | + ] *third_entity_name* [ ? | 1 | * | + ]
 
-## Cardinalities
+### Cardinalities
 
 * ```?``` stands for 0..1
 * ```1``` stands for 1..1
