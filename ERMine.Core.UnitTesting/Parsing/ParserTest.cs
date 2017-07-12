@@ -31,7 +31,10 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual(4, model.Entities[0].Attributes.Count());
             Assert.IsFalse(model.Entities[0].IsWeak);
             Assert.AreEqual("Course", model.Entities[1].Label);
-            Assert.AreEqual(3, model.Entities[1].Attributes.Count());
+            Assert.AreEqual(4, model.Entities[1].Attributes.Count());
+            Assert.AreEqual("CourseType", model.Entities[1].Attributes[3].DataType);
+            Assert.AreEqual("CourseType", model.Entities[1].Attributes[3].Domain.Label);
+            Assert.IsNull(model.Entities[1].Attributes[2].Domain);
             Assert.AreEqual("follow", model.Relationships[0].Label);
             Assert.AreEqual("Binary", model.Relationships[0].Kind);
             Assert.AreEqual("Evaluation", model.Entities[2].Label);
