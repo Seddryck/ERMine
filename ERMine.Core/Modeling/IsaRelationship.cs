@@ -17,5 +17,7 @@ namespace ERMine.Core.Modeling
 
         public Entity SuperClass { get; private set; }
         public Entity SubClass { get; private set; }
+
+        public string Label { get; protected set; }
     }
 }

@@ -49,6 +49,8 @@
     <Compile Include="Modeling\Domain.cs" />
     <Compile Include="Modeling\Factory\DomainFactory.cs" />
     <Compile Include="Modeling\Factory\IsaRelationshipFactory.cs" />
+    <Compile Include="Modeling\IsaOverlappingRelationship.cs" />
+    <Compile Include="Modeling\IsaDisjointRelationship.cs" />
     <Compile Include="Modeling\IsaRelationship.cs" />
     <Compile Include="Modeling\WeakEntity.cs" />
     <Compile Include="Modeling\Entity.cs" />

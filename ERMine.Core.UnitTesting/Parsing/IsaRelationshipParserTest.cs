@@ -30,5 +30,62 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
         }
 
+        [TestMethod]
+        public void IsaRelationship_Disjoint_TwoEntities2()
+        {
+            var input = "(d #1)";
+            var isaMarker = IsaRelationshipParser.IsaMarker.Parse(input);
+
+            Assert.AreEqual('d', isaMarker.Type);
+        }
+
+        [TestMethod]
+        public void IsaRelationship_Disjoint_TwoEntities()
+        {
+            var input = "[Student] -(d)-)- [Freshman]";
+            var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
+
+            Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaDisjointRelationship));
+        }
+
+        [TestMethod]
+        public void IsaRelationship_NamedDisjoint_TwoEntities()
+        {
+            var input = "[Student] -(d #1)-)- [Freshman]";
+            var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
+
+            Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaDisjointRelationship));
+            var isaDisjointRelationship = isaRelationship as IsaDisjointRelationship;
+            Assert.AreEqual("1", isaDisjointRelationship.Label);
+        }
+
+        [TestMethod]
+        public void IsaRelationship_Overlapping_TwoEntities()
+        {
+            var input = "[Student] -(o)-)- [Freshman]";
+            var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
+
+            Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaOverlappingRelationship));
+        }
+
+        [TestMethod]
+        public void IsaRelationship_NamedOverlapping_TwoEntities()
+        {
+            var input = "[Student] -(o #alpha)-)- [Freshman]";
+            var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
+
+            Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaOverlappingRelationship));
+            var isaOverlappingRelationship = isaRelationship as IsaOverlappingRelationship;
+            Assert.AreEqual("alpha", isaOverlappingRelationship.Label);
+        }
+
     }
 }
