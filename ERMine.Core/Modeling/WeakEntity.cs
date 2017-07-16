@@ -14,9 +14,12 @@ namespace ERMine.Core.Modeling
         internal WeakEntity(string label, IEnumerable<Attribute> attributes)
             : base(label, attributes) { }
 
-        protected override void BuildKey(IEnumerable<Attribute> attributes)
+        public override Key Key
         {
-            Key = new PartialKey(attributes.Where(a => a.IsPartOfPartialKey));
+            get
+            {
+                return new PartialKey(Attributes.Where(a => a.IsPartOfPartialKey));
+            }
         }
 
         public override bool IsWeak

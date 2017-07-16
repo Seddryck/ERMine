@@ -4,6 +4,11 @@ LastName varchar(50)
 FirstName varchar(50)
 Email varchar(50)?
 
+[Student]--|>-[Foreign student]
+
+[Foreign student]
+Country varchar(120)
+
 [Student] *-follow-* [Course]
 
 [Course]

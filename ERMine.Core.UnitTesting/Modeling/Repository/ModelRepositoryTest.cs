@@ -182,8 +182,8 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
 
             Assert.AreEqual(1, repository.Get().Domains.Count);
             Assert.AreEqual(1, repository.Get().Entities.Count);
-            Assert.AreEqual("Weekday", repository.Get().Entities[0].Attributes[0].DataType);
-            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].Attributes[0].Domain);
+            Assert.AreEqual("Weekday", repository.Get().Entities[0].SpecificAttributes[0].DataType);
+            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].SpecificAttributes[0].Domain);
         }
 
         [TestMethod]
@@ -204,8 +204,8 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
 
             Assert.AreEqual(1, repository.Get().Domains.Count);
             Assert.AreEqual(1, repository.Get().Entities.Count);
-            Assert.AreEqual("Weekday", repository.Get().Entities[0].Attributes[0].DataType);
-            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].Attributes[0].Domain);
+            Assert.AreEqual("Weekday", repository.Get().Entities[0].SpecificAttributes[0].DataType);
+            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].SpecificAttributes[0].Domain);
         }
 
 
@@ -221,6 +221,106 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
             }
 
             Assert.AreEqual(2, repository.Get().Domains.Count);
+        }
+
+        [TestMethod]
+        public void Merge_NewRelationship_Loaded()
+        {
+            var repository = new ModelRepository();
+            var student = new Entity("Student");
+            var freshman = new Entity("Freshman");
+            var isaRelationship = new IsaRelationship(student, freshman);
+
+            repository.Merge(isaRelationship);
+
+            Assert.AreEqual(2, repository.Get().Entities.Count);
+            Assert.AreEqual(1, repository.Get().IsaRelationships.Count);
+        }
+
+        [TestMethod]
+        public void Merge_TwoSameISARelationships_Loaded()
+        {
+            var repository = new ModelRepository();
+            var employee = new Entity("Employee");
+            var secretary = new Entity("Secretary");
+            var technician = new Entity("Technician");
+            var isaRelationship = new IsaRelationship(employee, secretary, "1");
+            var isaRelationship2 = new IsaRelationship(employee, technician, "1");
+
+            repository.Merge(isaRelationship);
+            repository.Merge(isaRelationship2);
+
+            Assert.AreEqual(3, repository.Get().Entities.Count);
+            Assert.AreEqual(1, repository.Get().IsaRelationships.Count);
+        }
+
+        [TestMethod]
+        public void Merge_TwoDistinctISARelationships_Loaded()
+        {
+            var repository = new ModelRepository();
+            var employee = new Entity("Employee");
+            var secretary = new Entity("Secretary");
+            var technician = new Entity("Technician");
+            var manager = new Entity("manager");
+            var isaRelationship1 = new IsaRelationship(employee, secretary, "1");
+            var isaRelationship2 = new IsaRelationship(employee, technician, "1");
+            var isaRelationship3 = new IsaRelationship(employee, manager, "2");
+
+            repository.Merge(isaRelationship1);
+            repository.Merge(isaRelationship2);
+            repository.Merge(isaRelationship3);
+
+            Assert.AreEqual(4, repository.Get().Entities.Count);
+            Assert.AreEqual(2, repository.Get().IsaRelationships.Count);
+        }
+
+        [TestMethod]
+        public void Merge_TwoUnnamedISARelationships_Loaded()
+        {
+            var repository = new ModelRepository();
+            var employee = new Entity("Employee");
+            var secretary = new Entity("Secretary");
+            var manager = new Entity("manager");
+            var isaRelationship1 = new IsaRelationship(employee, secretary);
+            var isaRelationship2 = new IsaRelationship(employee, manager);
+
+            repository.Merge(isaRelationship1);
+            repository.Merge(isaRelationship2);
+
+            Assert.AreEqual(3, repository.Get().Entities.Count);
+            Assert.AreEqual(2, repository.Get().IsaRelationships.Count);
+        }
+
+        [TestMethod]
+        public void Merge_TwoUnnamedISARelationships_SameParent()
+        {
+            var repository = new ModelRepository();
+            var employee = new Entity("Employee");
+            var secretary = new Entity("Secretary");
+            var manager = new Entity("manager");
+            var isaRelationship1 = new IsaRelationship(employee, secretary);
+            var isaRelationship2 = new IsaRelationship(employee, manager);
+
+            repository.Merge(isaRelationship1);
+            repository.Merge(isaRelationship2);
+
+            Assert.AreEqual(secretary.IsA[0].SuperClass, manager.IsA[0].SuperClass);
+        }
+
+        [TestMethod]
+        public void Merge_TwoUnnamedISARelationships_SameIsA()
+        {
+            var repository = new ModelRepository();
+            var employee = new Entity("Employee");
+            var secretary = new Entity("Secretary");
+            var technician = new Entity("Technician");
+            var isaRelationship1 = new IsaRelationship(employee, secretary, "1");
+            var isaRelationship2 = new IsaRelationship(employee, technician, "1");
+
+            repository.Merge(isaRelationship1);
+            repository.Merge(isaRelationship2);
+
+            Assert.AreEqual(secretary.IsA[0], technician.IsA[0]);
         }
     }
 }

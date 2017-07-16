@@ -9,30 +9,45 @@ namespace ERMine.Core.Modeling
     public class Entity : IEquatable<Entity>, IEntityRelationship
     {
         public string Label { get; private set; }
-        public Key Key { get; protected set; }
-        public IReadOnlyList<Attribute> Attributes { get; private set; }
+        public virtual Key Key
+        {
+            get
+            {
+                return new PrimaryKey(Attributes.Where(a => a.IsPartOfPrimaryKey));
+            }
+        }
+        public IList<Attribute> SpecificAttributes { get; private set; }
+
+        public IList<IsaRelationship> IsA { get; private set; }
 
         internal Entity(string label)
         {
             Label = label;
-            Attributes = new List<Attribute>();
+            SpecificAttributes = new List<Attribute>();
+            IsA = new List<IsaRelationship>();
         }
 
         internal Entity(string label, IEnumerable<Attribute> attributes)
         {
             Label = label;
-            Attributes = attributes.ToList();
-            BuildKey(attributes);
-        }
-
-        protected virtual void BuildKey(IEnumerable<Attribute> attributes)
-        {
-            Key = new PrimaryKey(attributes.Where(a => a.IsPartOfPrimaryKey));
+            SpecificAttributes = attributes.ToList();
+            IsA = new List<IsaRelationship>();
         }
 
         public virtual bool IsWeak
         {
             get { return false; }
+        }
+
+        public IEnumerable<Attribute> Attributes
+        {
+            get
+            {
+                return SpecificAttributes.Union
+                    (
+                        IsA.SelectMany(i => i.SuperClass.Attributes)
+                    );
+            }
         }
         
         #region IEquatable

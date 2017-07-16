@@ -17,22 +17,22 @@ namespace ERMine.Core.Modeling.Repository
             return model;
         }
 
-        public void MergeEntity(Entity entity)
+        public Entity MergeEntity(Entity entity)
         {
             if (!model.Entities.Contains(entity))
                 model.Entities.Add(entity);
             else
             {
-                var existingEntity = model.Entities.Single(e => e.Label == entity.Label);
-                if (existingEntity.Attributes.Count==0)
-                {
-                    model.Entities.Remove(existingEntity);
-                    model.Entities.Add(entity);
-                }
+                var existingEntity = model.Entities.Single(e => e.Equals(entity));
+                var missingAttributes = entity.SpecificAttributes.Except(existingEntity.SpecificAttributes);
+                foreach (var missingAttribute in missingAttributes)
+                    existingEntity.SpecificAttributes.Add(missingAttribute);
             }
 
-            foreach (var attr in entity.Attributes)
+            foreach (var attr in entity.SpecificAttributes)
                 attr.Domain = model.Domains.SingleOrDefault(d => d.Label == attr.DataType);
+
+            return model.Entities.Single(e => e.Equals(entity));
         }
 
         public void MergeRelationship(Relationship relationship)
@@ -65,9 +65,38 @@ namespace ERMine.Core.Modeling.Repository
                 }
             }
 
-            var attrs = model.Entities.SelectMany(e => e.Attributes).Where(a => a.DataType == domain.Label);
+            var attrs = model.Entities.SelectMany(e => e.SpecificAttributes).Where(a => a.DataType == domain.Label);
             foreach (var attr in attrs)
                 attr.Domain = domain;
+        }
+
+
+        public void MergeIsaRelationship(IsaRelationship isaRelationship)
+        {
+            var superClass = MergeEntity(isaRelationship.SuperClass);
+            isaRelationship.SuperClass = superClass;
+
+            for (int i = 0; i < isaRelationship.SubClasses.Count; i++)
+            {
+                var subClass = MergeEntity(isaRelationship.SubClasses[i]);
+                isaRelationship.SubClasses[i] = subClass;
+            }   
+
+            if (model.IsaRelationships.Contains(isaRelationship))
+            {
+                var existing = model.IsaRelationships.Single(i => i.Equals(isaRelationship));
+                foreach (var subClass in isaRelationship.SubClasses)
+                    if (!existing.SubClasses.Contains(subClass))
+                        existing.SubClasses.Add(subClass);
+                        
+            }
+            else
+                model.IsaRelationships.Add(isaRelationship);
+
+            var isa = model.IsaRelationships.SingleOrDefault(i => i.Equals(isaRelationship));
+            isa = isa ?? isaRelationship; //It happens when the relationship has no name
+            foreach (var subClass in isa.SubClasses)
+                subClass.IsA.Add(isa);
         }
 
         public void Merge(IEntityRelationship entityRelationship)
@@ -78,6 +107,8 @@ namespace ERMine.Core.Modeling.Repository
                 MergeRelationship(entityRelationship as Relationship);
             else if (entityRelationship is Domain)
                 MergeDomain(entityRelationship as Domain);
+            else if (entityRelationship is IsaRelationship)
+                MergeIsaRelationship(entityRelationship as IsaRelationship);
             else
                 throw new ArgumentOutOfRangeException();
         }

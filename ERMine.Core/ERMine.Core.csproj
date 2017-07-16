@@ -48,6 +48,14 @@
     <Compile Include="Modeling\Cardinality.cs" />
     <Compile Include="Modeling\Domain.cs" />
     <Compile Include="Modeling\Factory\DomainFactory.cs" />
+    <Compile Include="Modeling\Factory\IsaRelationshipFactory.cs" />
+    <Compile Include="Modeling\IsaTotalDisjointRelationship.cs" />
+    <Compile Include="Modeling\IsaTotalOverlappingRelationship.cs" />
+    <Compile Include="Modeling\IsaPartialOverlappingRelationship.cs" />
+    <Compile Include="Modeling\IsaPartialDisjointRelationship.cs" />
+    <Compile Include="Modeling\IsaRelationship.cs" />
+    <Compile Include="Modeling\DisjointnessType.cs" />
+    <Compile Include="Modeling\CompletenessType.cs" />
     <Compile Include="Modeling\WeakEntity.cs" />
     <Compile Include="Modeling\Entity.cs" />
     <Compile Include="Modeling\Attribute.cs" />
@@ -61,6 +69,7 @@
     <Compile Include="Parsing\Formula.cs" />
     <Compile Include="Parsing\ModelParser.cs" />
     <Compile Include="Parsing\Parser.cs" />
+    <Compile Include="Parsing\IsaRelationshipParser.cs" />
     <Compile Include="Parsing\RelationshipNAryParser.cs" />
     <Compile Include="Parsing\RelationshipBinaryParser.cs" />
     <Compile Include="Parsing\EntityParser.cs" />

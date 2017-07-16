@@ -61,6 +61,7 @@
     <Compile Include="Parsing\DomainParserTest.cs" />
     <Compile Include="Parsing\ModelParserTest.cs" />
     <Compile Include="Parsing\ParserTest.cs" />
+    <Compile Include="Parsing\IsaRelationshipParserTest.cs" />
     <Compile Include="Parsing\RelationshipParserTest.cs" />
     <Compile Include="Parsing\EntityParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,10 +73,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Parsing\Resources\Model.txt" />
+    <EmbeddedResource Include="Parsing\Resources\University.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Parsing\Resources\Engineering.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Parsing\Resources\Part.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

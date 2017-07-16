@@ -17,6 +17,12 @@ namespace ERMine.Core.Parsing
             select relationship
         );
 
+        public readonly static Parser<IEntityRelationship> IsaRelationship =
+        (
+            from isaRelationship in IsaRelationshipParser.IsaRelationship
+            select isaRelationship
+        );
+
         public readonly static Parser<IEntityRelationship> EntityAttributes =
         (
             from entity in EntityParser.Entity
@@ -35,7 +41,7 @@ namespace ERMine.Core.Parsing
 
         public readonly static Parser<IEntityRelationship> EntityRelationship =
         (
-            from entityRelationship in Relationship.Or(EntityAttributes).Or(DomainValues)
+            from entityRelationship in Relationship.Or(IsaRelationship).Or(EntityAttributes).Or(DomainValues)
             from lineTerminator in Parse.LineTerminator.XMany()
             select entityRelationship
         );

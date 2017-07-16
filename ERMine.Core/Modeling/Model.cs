@@ -10,12 +10,14 @@ namespace ERMine.Core.Modeling
     {
         public IList<Entity> Entities { get; internal set; }
         public IList<Relationship> Relationships { get; internal set; }
+        public IList<IsaRelationship> IsaRelationships { get; internal set; }
         public IList<Domain> Domains { get; internal set; }
 
         public Model()
         {
             Entities = new List<Entity>();
             Relationships = new List<Relationship>();
+            IsaRelationships = new List<IsaRelationship>();
             Domains = new List<Domain>();
         }
     }

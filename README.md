@@ -103,3 +103,31 @@ Ternary (or more) relationships are noted differently
 * ```-located- [City]1 [Country]* ``` a *city* is located in excatly one *country* and a *country* incorporates zero or n cities (alternate notation)
 * ``` -deal- [Vendor]+ [Customer]+ [Location]1 ``` a deal involves many vendors and customers in a unique location.
 
+## IS-A relationships (super and sub classes)
+
+*super_entity_name* [ - | = ][( o | u [#*is-a_name*])]-|>- *sub_entity_name*
+*sub_entity_name* -<|-[( o | u [#*is-a_name*])][ - | = ] *super_entity_name*
+
+The relation IS-A is symbolized by a triangle (pipe + closing angle bracket or opening angle bracket + pipe) and three dashes. It's also possible to define the kind of IS-A relation by specifying a ```o``` for an overlapping and a ```d``` for disjoint.
+
+To specify that a IS-A relation complete a previously described relations you must specify it's name between the parenthesis and after a ```#```. Name must be textual or numeric. Two unnamed IS-A relations are always considered as differents. 
+
+The symbol ```=``` means that the relation is total, at the opposite the symbol ```-``` means that the relation is partial.
+
+**Expl:**
+
+```
+[Employee] -(d #1)-|>- [Secretary]
+[Employee] -(d #1)-|>- [Technician]
+[Employee] -(d #1)-|>- [Engineer]
+
+[Employee] --|>- [Manager]
+
+[Employee] =(d #2)-|>- [Hourly employee]
+[Employee] =(d #2)-|>- [Salaried employee]
+```
+The previous code creates three IS-A relations. 
+
+* The first IS-A relation has three branches and an employee is either (disjoint) a secretary or a technician or an engineer or not one of these subtypes (partial relation).
+* The second IS-A relation has a unique branch meaning that an employee can be a manager.
+* The third IS-A relation has two branches and an employee is either (disjoint) hourly paid or salaried (total relation).
