@@ -7,6 +7,7 @@ using ERMine.Core.Parsing;
 using Sprache;
 using System.IO;
 using System.Reflection;
+using ERMine.Core.Modeling;
 
 namespace ERMine.UnitTesting.Core.Parsing
 {
@@ -96,6 +97,12 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             var part = model.Entities.Single(e => e.Label == "Part");
             Assert.AreEqual(2, part.Attributes.Count);
+
+            var manufactured = model.Entities.Single(e => e.Label == "Manufactured part");
+            Assert.AreEqual(3, manufactured.Attributes.Count);
+
+            Assert.AreEqual(part, manufactured.IsA[0].SuperClass);
+            Assert.IsInstanceOfType(manufactured.IsA[0], typeof(IsaOverlappingRelationship));
         }
     }
 }

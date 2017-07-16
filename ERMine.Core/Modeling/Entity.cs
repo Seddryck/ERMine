@@ -10,7 +10,7 @@ namespace ERMine.Core.Modeling
     {
         public string Label { get; private set; }
         public Key Key { get; protected set; }
-        public IReadOnlyList<Attribute> Attributes { get; private set; }
+        public IList<Attribute> Attributes { get; private set; }
 
         public IList<IsaRelationship> IsA { get; private set; }
 

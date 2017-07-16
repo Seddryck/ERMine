@@ -24,11 +24,9 @@ namespace ERMine.Core.Modeling.Repository
             else
             {
                 var existingEntity = model.Entities.Single(e => e.Equals(entity));
-                if (existingEntity.Attributes.Count == 0)
-                {
-                    model.Entities.Remove(existingEntity);
-                    model.Entities.Add(entity);
-                }
+                var missingAttributes = entity.Attributes.Except(existingEntity.Attributes);
+                foreach (var missingAttribute in missingAttributes)
+                    existingEntity.Attributes.Add(missingAttribute);
             }
 
             foreach (var attr in entity.Attributes)

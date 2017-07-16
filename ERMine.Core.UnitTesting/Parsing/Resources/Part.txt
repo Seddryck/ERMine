@@ -3,7 +3,6 @@
 
 [Part]
 * PartNo int
-Description varchar(50)
 
 [Manufactured part]
 Manufactured_date date
@@ -13,3 +12,7 @@ DrawingNo int
 [Purchased part]
 SupplierName varchar(50)
 List_price money
+
+[Part]
+Description varchar(50)
+
