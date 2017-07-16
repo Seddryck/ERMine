@@ -38,7 +38,7 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
             Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
-            Assert.IsInstanceOfType(isaRelationship, typeof(IsaDisjointRelationship));
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaPartialDisjointRelationship));
         }
 
         [TestMethod]
@@ -49,8 +49,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
             Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
-            Assert.IsInstanceOfType(isaRelationship, typeof(IsaDisjointRelationship));
-            var isaDisjointRelationship = isaRelationship as IsaDisjointRelationship;
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaPartialDisjointRelationship));
+            var isaDisjointRelationship = isaRelationship as IsaPartialDisjointRelationship;
             Assert.AreEqual("1", isaDisjointRelationship.Label);
         }
 
@@ -62,7 +62,7 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
             Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
-            Assert.IsInstanceOfType(isaRelationship, typeof(IsaOverlappingRelationship));
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaPartialOverlappingRelationship));
         }
 
         [TestMethod]
@@ -73,8 +73,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
             Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
-            Assert.IsInstanceOfType(isaRelationship, typeof(IsaOverlappingRelationship));
-            var isaOverlappingRelationship = isaRelationship as IsaOverlappingRelationship;
+            Assert.IsInstanceOfType(isaRelationship, typeof(IsaPartialOverlappingRelationship));
+            var isaOverlappingRelationship = isaRelationship as IsaPartialOverlappingRelationship;
             Assert.AreEqual("alpha", isaOverlappingRelationship.Label);
         }
 

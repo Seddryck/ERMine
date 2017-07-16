@@ -9,21 +9,29 @@ namespace ERMine.Core.Modeling
 {
     public class IsaRelationship: IEntityRelationship
     {
+        private readonly bool isPartial;
+
         public IsaRelationship(Entity super, Entity sub)
-            : this (super, new[] { sub }, string.Empty)
+            : this (super, new[] { sub }, string.Empty, true)
         {
         }
 
         public IsaRelationship(Entity super, Entity sub, string label)
-            : this(super, new[] { sub }, label)
+            : this(super, new[] { sub }, label, true)
         {
         }
 
-        public IsaRelationship(Entity super, IEnumerable<Entity> sub, string label)
+        public IsaRelationship(Entity super, Entity sub, string label, bool isPartial)
+            : this(super, new[] { sub }, label, isPartial)
+        {
+        }
+
+        public IsaRelationship(Entity super, IEnumerable<Entity> sub, string label, bool isPartial)
         {
             SuperClass = super;
             SubClasses = new List<Entity>(sub);
             Label = label;
+            this.isPartial = isPartial;
         }
 
         public Entity SuperClass { get; internal set; }
@@ -67,9 +75,14 @@ namespace ERMine.Core.Modeling
             return !(isa1.Equals(isa2));
         }
 
-        public virtual string Kind
+        public virtual DisjointnessType Disjointness
         {
-            get { return "Undefined"; }
+            get { return DisjointnessType.Disjoint; }
+        }
+
+        public virtual CompletenessType Completeness
+        {
+            get { return CompletenessType.Partial; }
         }
     }
 }

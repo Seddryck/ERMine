@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 
 namespace ERMine.Core.Modeling
 {
-    public class IsaOverlappingRelationship : IsaRelationship
+    public class IsaPartialOverlappingRelationship : IsaRelationship
     {
-        public IsaOverlappingRelationship(Entity super, Entity sub)
+        public IsaPartialOverlappingRelationship(Entity super, Entity sub)
             : base(super, sub)
         {
             
         }
-        public IsaOverlappingRelationship(Entity super, Entity sub, string label)
+        public IsaPartialOverlappingRelationship(Entity super, Entity sub, string label)
             : this(super, sub)
         {
             Label = label;
         }
 
-        public override string Kind
+        public override DisjointnessType Disjointness
         {
-            get { return "Overlapping"; }
+            get { return DisjointnessType.Overlapping; }
         }
     }
 }

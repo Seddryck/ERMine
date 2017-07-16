@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace ERMine.Core.Modeling
 {
-    public class IsaDisjointRelationship: IsaRelationship
+    public class IsaPartialDisjointRelationship: IsaRelationship
     {
-        public IsaDisjointRelationship(Entity super, Entity sub)
+        public IsaPartialDisjointRelationship(Entity super, Entity sub)
             : base(super, sub)
         {
             
         }
 
-        public IsaDisjointRelationship(Entity super, Entity sub, string label)
+        public IsaPartialDisjointRelationship(Entity super, Entity sub, string label)
             : this(super, sub)
         {
             Label = label;
         }
 
-        public override string Kind
+        public override DisjointnessType Disjointness
         {
-            get { return "Disjoint"; }
+            get { return DisjointnessType.Disjoint; }
         }
     }
 }

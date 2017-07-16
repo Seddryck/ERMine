@@ -17,16 +17,31 @@ namespace ERMine.Core.Modeling.Factory
             return new IsaRelationship(super, sub);
         }
 
-        public IsaRelationship Create(string firstEntity, string secondEntity, char type, string groupName)
+        public IsaRelationship Create(string firstEntity, string secondEntity, bool isPartial)
+        {
+            var super = new Entity(firstEntity);
+            var sub = new Entity(secondEntity);
+
+            return new IsaRelationship(super, sub, string.Empty, isPartial);
+        }
+
+
+        public IsaRelationship Create(string firstEntity, string secondEntity, bool isPartial, char type, string groupName)
         {
             var super = new Entity(firstEntity);
             var sub = new Entity(secondEntity);
             switch (type)
             {
                 case 'd':
-                    return new IsaDisjointRelationship(super, sub, groupName);
+                    return
+                        isPartial ?
+                        (IsaRelationship) new IsaPartialDisjointRelationship(super, sub, groupName) :
+                        (IsaRelationship) new IsaTotalDisjointRelationship(super, sub, groupName);
                 case 'o':
-                    return new IsaOverlappingRelationship(super, sub, groupName);
+                    return
+                        isPartial ?
+                        (IsaRelationship)new IsaPartialOverlappingRelationship(super, sub, groupName) :
+                        (IsaRelationship)new IsaTotalOverlappingRelationship(super, sub, groupName);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

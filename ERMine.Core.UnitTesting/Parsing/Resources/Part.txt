@@ -1,5 +1,5 @@
-﻿[Manufactured part] -<|-(o #1)- [Part]
-[Purchased part] -<|-(o #1)- [Part]
+﻿[Manufactured part] -<|-(o #1)= [Part]
+[Purchased part] -<|-(o #1)= [Part]
 
 [Part]
 * PartNo int
