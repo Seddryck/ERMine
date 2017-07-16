@@ -17,7 +17,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
-            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
         }
 
         [TestMethod]
@@ -27,18 +27,9 @@ namespace ERMine.UnitTesting.Core.Parsing
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
-            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
         }
-
-        [TestMethod]
-        public void IsaRelationship_Disjoint_TwoEntities2()
-        {
-            var input = "(d #1)";
-            var isaMarker = IsaRelationshipParser.IsaMarker.Parse(input);
-
-            Assert.AreEqual('d', isaMarker.Type);
-        }
-
+        
         [TestMethod]
         public void IsaRelationship_Disjoint_TwoEntities()
         {
@@ -46,7 +37,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
-            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
             Assert.IsInstanceOfType(isaRelationship, typeof(IsaDisjointRelationship));
         }
 
@@ -57,7 +48,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
-            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
             Assert.IsInstanceOfType(isaRelationship, typeof(IsaDisjointRelationship));
             var isaDisjointRelationship = isaRelationship as IsaDisjointRelationship;
             Assert.AreEqual("1", isaDisjointRelationship.Label);
@@ -70,7 +61,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
-            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
             Assert.IsInstanceOfType(isaRelationship, typeof(IsaOverlappingRelationship));
         }
 
@@ -81,7 +72,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
-            Assert.AreEqual("Freshman", isaRelationship.SubClass.Label);
+            Assert.AreEqual("Freshman", isaRelationship.SubClasses[0].Label);
             Assert.IsInstanceOfType(isaRelationship, typeof(IsaOverlappingRelationship));
             var isaOverlappingRelationship = isaRelationship as IsaOverlappingRelationship;
             Assert.AreEqual("alpha", isaOverlappingRelationship.Label);

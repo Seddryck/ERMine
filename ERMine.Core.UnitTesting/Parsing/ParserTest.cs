@@ -14,11 +14,11 @@ namespace ERMine.UnitTesting.Core.Parsing
     public class ParserTest
     {
         [TestMethod]
-        public void Parse_Simple_Correct()
+        public void Parse_University_Correct()
         {
             var text = string.Empty;
             using (var stream = Assembly.GetExecutingAssembly()
-                                           .GetManifestResourceStream("ERMine.UnitTesting.Core.Parsing.Resources.Model.txt"))
+                                           .GetManifestResourceStream("ERMine.UnitTesting.Core.Parsing.Resources.University.txt"))
                 using (var reader = new StreamReader(stream))
                 {
                     text = reader.ReadToEnd();
@@ -56,7 +56,25 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual(1, model.IsaRelationships.Count);
             Assert.AreEqual("Student", model.IsaRelationships[0].SuperClass.Label);
-            Assert.AreEqual("Foreign student", model.IsaRelationships[0].SubClass.Label);
+            Assert.AreEqual("Foreign student", model.IsaRelationships[0].SubClasses[0].Label);
+        }
+
+        [TestMethod]
+        public void Parse_Engineering_Correct()
+        {
+            var text = string.Empty;
+            using (var stream = Assembly.GetExecutingAssembly()
+                                           .GetManifestResourceStream("ERMine.UnitTesting.Core.Parsing.Resources.Engineering.txt"))
+            using (var reader = new StreamReader(stream))
+            {
+                text = reader.ReadToEnd();
+            }
+
+            var parser = new Parser();
+            var model = parser.Parse(text);
+            
+            Assert.AreEqual(7, model.Entities.Count);
+            Assert.AreEqual(3, model.IsaRelationships.Count);
         }
     }
 }

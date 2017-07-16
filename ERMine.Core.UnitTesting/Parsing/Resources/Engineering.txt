@@ -1,0 +1,8 @@
+﻿[Employee] -(d #1)-)- [Secretary]
+[Employee] -(d #1)-)- [Technician]
+[Employee] -(d #1)-)- [Engineer]
+
+[Employee] -(d)-)- [Manager]
+
+[Employee] -(d #2)-)- [Hourly employee]
+[Employee] -(d #2)-)- [Salaried employee]

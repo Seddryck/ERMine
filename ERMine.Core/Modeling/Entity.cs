@@ -12,10 +12,13 @@ namespace ERMine.Core.Modeling
         public Key Key { get; protected set; }
         public IReadOnlyList<Attribute> Attributes { get; private set; }
 
+        public IList<IsaRelationship> IsA { get; private set; }
+
         internal Entity(string label)
         {
             Label = label;
             Attributes = new List<Attribute>();
+            IsA = new List<IsaRelationship>();
         }
 
         internal Entity(string label, IEnumerable<Attribute> attributes)
@@ -23,6 +26,7 @@ namespace ERMine.Core.Modeling
             Label = label;
             Attributes = attributes.ToList();
             BuildKey(attributes);
+            IsA = new List<IsaRelationship>();
         }
 
         protected virtual void BuildKey(IEnumerable<Attribute> attributes)

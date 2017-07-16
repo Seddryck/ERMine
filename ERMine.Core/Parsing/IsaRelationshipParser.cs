@@ -23,7 +23,7 @@ namespace ERMine.Core.Parsing
             select groupName
         );
 
-        public readonly static Parser<IsaMarkerStruct> IsaMarker =
+        private readonly static Parser<IsaMarkerStruct> IsaMarker =
         (
             from firstSeparator in Parse.Char('(')
             from type in Parse.Char('d').Or(Parse.Char('o'))
