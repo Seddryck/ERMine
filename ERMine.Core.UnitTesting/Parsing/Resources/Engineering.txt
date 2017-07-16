@@ -4,5 +4,5 @@
 
 [Employee] -(d)-|>- [Manager]
 
-[Employee] -(d #2)-|>- [Hourly employee]
-[Employee] -(d #2)-|>- [Salaried employee]
+[Employee] =(d #2)-|>- [Hourly employee]
+[Employee] =(d #2)-|>- [Salaried employee]
