@@ -27,22 +27,36 @@ namespace ERMine.UnitTesting.Core.Parsing
             var parser = new Parser();
             var model = parser.Parse(text);
 
-            Assert.AreEqual("Student", model.Entities[0].Label);
-            Assert.AreEqual(4, model.Entities[0].Attributes.Count());
-            Assert.IsFalse(model.Entities[0].IsWeak);
-            Assert.AreEqual("Course", model.Entities[1].Label);
-            Assert.AreEqual(4, model.Entities[1].Attributes.Count());
-            Assert.AreEqual("CourseType", model.Entities[1].Attributes[3].DataType);
-            Assert.AreEqual("CourseType", model.Entities[1].Attributes[3].Domain.Label);
-            Assert.IsNull(model.Entities[1].Attributes[2].Domain);
+            var student = model.Entities.SingleOrDefault(e => e.Label == "Student");
+            Assert.IsNotNull(student);
+            Assert.AreEqual(4, student.Attributes.Count());
+            Assert.IsFalse(student.IsWeak);
+
+            var course = model.Entities.SingleOrDefault(e => e.Label == "Course");
+            Assert.IsNotNull(course);
+            Assert.AreEqual(4, course.Attributes.Count());
+            Assert.AreEqual("CourseType", course.Attributes[3].DataType);
+            Assert.AreEqual("CourseType", course.Attributes[3].Domain.Label);
+            Assert.IsNull(course.Attributes[2].Domain);
+
             Assert.AreEqual("follow", model.Relationships[0].Label);
             Assert.AreEqual("Binary", model.Relationships[0].Kind);
-            Assert.AreEqual("Evaluation", model.Entities[2].Label);
-            Assert.IsTrue(model.Entities[2].IsWeak);
-            Assert.AreEqual(5, model.Entities[2].Attributes.Count());
+
+            var evaluation = model.Entities.SingleOrDefault(e => e.Label == "Evaluation");
+            Assert.IsNotNull(evaluation);
+            Assert.IsTrue(evaluation.IsWeak);
+            Assert.AreEqual(5, evaluation.Attributes.Count());
+
             Assert.AreEqual(1, model.Domains.Count);
             Assert.AreEqual("CourseType", model.Domains[0].Label);
             Assert.AreEqual(2, model.Domains[0].Values.Count);
+
+            var foreignStudent = model.Entities.SingleOrDefault(e => e.Label == "Foreign student");
+            Assert.IsNotNull(foreignStudent);
+
+            Assert.AreEqual(1, model.IsaRelationships.Count);
+            Assert.AreEqual("Student", model.IsaRelationships[0].SuperClass.Label);
+            Assert.AreEqual("Foreign student", model.IsaRelationships[0].SubClass.Label);
         }
     }
 }

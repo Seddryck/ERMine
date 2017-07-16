@@ -70,6 +70,15 @@ namespace ERMine.Core.Modeling.Repository
                 attr.Domain = domain;
         }
 
+
+        public void MergeIsaRelationship(IsaRelationship isaRelationship)
+        {
+            MergeEntity(isaRelationship.SuperClass);
+            MergeEntity(isaRelationship.SubClass);
+
+            model.IsaRelationships.Add(isaRelationship);
+        }
+
         public void Merge(IEntityRelationship entityRelationship)
         {
             if (entityRelationship is Entity)
@@ -78,6 +87,8 @@ namespace ERMine.Core.Modeling.Repository
                 MergeRelationship(entityRelationship as Relationship);
             else if (entityRelationship is Domain)
                 MergeDomain(entityRelationship as Domain);
+            else if (entityRelationship is IsaRelationship)
+                MergeIsaRelationship(entityRelationship as IsaRelationship);
             else
                 throw new ArgumentOutOfRangeException();
         }
