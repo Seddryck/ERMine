@@ -33,14 +33,14 @@ namespace ERMine.Core.Parsing
             select new IsaMarkerStruct(){ Type = type, Name = groupName.GetOrElse(string.Empty) }
         );
 
-        private readonly static Parser<IsaRelationship> OneWayIsaRelationship =
+        private readonly static Parser<IsaRelationship> LeftRightIsaRelationship =
         (
             from firstEntity in Grammar.BracketTextual
             from space1 in Parse.WhiteSpace.Many()
             from firstSeparator in Parse.Char('-')
             from marker in IsaMarker.Optional()
             from secondSeparator in Parse.Char('-')
-            from way in Parse.Char(')')
+            from way in Parse.String("|>")
             from thirdSeparator in Parse.Char('-')
             from space2 in Parse.WhiteSpace.Many()
             from secondEntity in Grammar.BracketTextual
@@ -52,22 +52,28 @@ namespace ERMine.Core.Parsing
                     firstEntity, secondEntity)
         );
 
-        private readonly static Parser<IsaRelationship> ReverseIsaRelationship =
+        private readonly static Parser<IsaRelationship> RightLeftIsaRelationship =
         (
             from firstEntity in Grammar.BracketTextual
             from space1 in Parse.WhiteSpace.Many()
             from firstSeparator in Parse.Char('-')
-            from way in Parse.Char('(')
+            from way in Parse.String("<|")
             from secondSeparator in Parse.Char('-')
+            from marker in IsaMarker.Optional()
             from thirdSeparator in Parse.Char('-')
             from space2 in Parse.WhiteSpace.Many()
             from secondEntity in Grammar.BracketTextual
-            select new IsaRelationshipFactory().Create(secondEntity, firstEntity)
+            select
+                marker.IsDefined ?
+                new IsaRelationshipFactory().Create(
+                     secondEntity, firstEntity, marker.Get().Type, marker.Get().Name) :
+                new IsaRelationshipFactory().Create(
+                    secondEntity, firstEntity)
         );
 
         public readonly static Parser<IsaRelationship> IsaRelationship =
         (
-            from isaRelationship in OneWayIsaRelationship.Or(ReverseIsaRelationship)
+            from isaRelationship in LeftRightIsaRelationship.Or(RightLeftIsaRelationship)
             select isaRelationship
         );
 

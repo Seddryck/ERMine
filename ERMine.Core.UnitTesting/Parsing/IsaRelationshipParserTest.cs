@@ -13,7 +13,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void IsaRelationship_Simple_TwoEntities()
         {
-            var input = "[Student] --)- [Freshman]";
+            var input = "[Student] --|>- [Freshman]";
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
@@ -23,7 +23,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void IsaRelationship_Reverse_TwoEntities()
         {
-            var input = "[Freshman] -(-- [Student]";
+            var input = "[Freshman] -<|-- [Student]";
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
@@ -33,7 +33,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void IsaRelationship_Disjoint_TwoEntities()
         {
-            var input = "[Student] -(d)-)- [Freshman]";
+            var input = "[Student] -(d)-|>- [Freshman]";
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
@@ -44,7 +44,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void IsaRelationship_NamedDisjoint_TwoEntities()
         {
-            var input = "[Student] -(d #1)-)- [Freshman]";
+            var input = "[Student] -(d #1)-|>- [Freshman]";
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
@@ -57,7 +57,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void IsaRelationship_Overlapping_TwoEntities()
         {
-            var input = "[Student] -(o)-)- [Freshman]";
+            var input = "[Student] -(o)-|>- [Freshman]";
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
@@ -68,7 +68,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void IsaRelationship_NamedOverlapping_TwoEntities()
         {
-            var input = "[Student] -(o #alpha)-)- [Freshman]";
+            var input = "[Student] -(o #alpha)-|>- [Freshman]";
             var isaRelationship = IsaRelationshipParser.IsaRelationship.Parse(input);
 
             Assert.AreEqual("Student", isaRelationship.SuperClass.Label);
