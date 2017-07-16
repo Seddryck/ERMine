@@ -9,7 +9,13 @@ namespace ERMine.Core.Modeling
     public class Entity : IEquatable<Entity>, IEntityRelationship
     {
         public string Label { get; private set; }
-        public Key Key { get; protected set; }
+        public virtual Key Key
+        {
+            get
+            {
+                return new PrimaryKey(Attributes.Where(a => a.IsPartOfPrimaryKey));
+            }
+        }
         public IList<Attribute> SpecificAttributes { get; private set; }
 
         public IList<IsaRelationship> IsA { get; private set; }
@@ -25,20 +31,13 @@ namespace ERMine.Core.Modeling
         {
             Label = label;
             SpecificAttributes = attributes.ToList();
-            BuildKey(attributes);
             IsA = new List<IsaRelationship>();
-        }
-
-        protected virtual void BuildKey(IEnumerable<Attribute> attributes)
-        {
-            Key = new PrimaryKey(attributes.Where(a => a.IsPartOfPrimaryKey));
         }
 
         public virtual bool IsWeak
         {
             get { return false; }
         }
-
 
         public IEnumerable<Attribute> Attributes
         {

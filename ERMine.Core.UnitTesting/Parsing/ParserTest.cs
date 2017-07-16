@@ -106,8 +106,9 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual("Overlapping", manufactured.IsA[0].Kind);
 
             var foreign = model.Entities.Single(e => e.Label == "Foreign part");
-            Assert.AreEqual(3, manufactured.SpecificAttributes.Count);
-            Assert.AreEqual(5, manufactured.Attributes.Count());
+            Assert.AreEqual(1, foreign.SpecificAttributes.Count);
+            Assert.AreEqual(5, foreign.Attributes.Count());
+            Assert.AreEqual(1, foreign.Key.Attributes.Count());
         }
     }
 }
