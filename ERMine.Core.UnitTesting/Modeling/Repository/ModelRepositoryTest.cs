@@ -182,8 +182,8 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
 
             Assert.AreEqual(1, repository.Get().Domains.Count);
             Assert.AreEqual(1, repository.Get().Entities.Count);
-            Assert.AreEqual("Weekday", repository.Get().Entities[0].Attributes[0].DataType);
-            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].Attributes[0].Domain);
+            Assert.AreEqual("Weekday", repository.Get().Entities[0].SpecificAttributes[0].DataType);
+            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].SpecificAttributes[0].Domain);
         }
 
         [TestMethod]
@@ -204,8 +204,8 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
 
             Assert.AreEqual(1, repository.Get().Domains.Count);
             Assert.AreEqual(1, repository.Get().Entities.Count);
-            Assert.AreEqual("Weekday", repository.Get().Entities[0].Attributes[0].DataType);
-            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].Attributes[0].Domain);
+            Assert.AreEqual("Weekday", repository.Get().Entities[0].SpecificAttributes[0].DataType);
+            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].SpecificAttributes[0].Domain);
         }
 
 

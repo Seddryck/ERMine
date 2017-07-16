@@ -23,7 +23,7 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual(1, entityRelationships.Count());
             Assert.AreEqual(1, entityRelationships.Count(e => e is Entity));
-            Assert.AreEqual(4, (entityRelationships.ElementAt(0) as Entity).Attributes.Count);
+            Assert.AreEqual(4, (entityRelationships.ElementAt(0) as Entity).SpecificAttributes.Count);
 
         }
 
@@ -41,8 +41,8 @@ namespace ERMine.UnitTesting.Core.Parsing
 
             Assert.AreEqual(2, entityRelationships.Count());
             Assert.AreEqual(2, entityRelationships.Count(e => e is Entity));
-            Assert.AreEqual(1, (entityRelationships.ElementAt(0) as Entity).Attributes.Count);
-            Assert.AreEqual(1, (entityRelationships.ElementAt(1) as Entity).Attributes.Count);
+            Assert.AreEqual(1, (entityRelationships.ElementAt(0) as Entity).SpecificAttributes.Count);
+            Assert.AreEqual(1, (entityRelationships.ElementAt(1) as Entity).SpecificAttributes.Count);
 
         }
 
@@ -265,6 +265,27 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual(3, entityRelationships.Count(r => r is Relationship));
 
         }
-        
+
+        [TestMethod]
+        public void Parse_TwoSuperClasses_AttributesCount()
+        {
+            var input = "[Student]" + "\r\n";
+            input += "StudentNo" + "\r\n";
+            input += "\r\n";
+            input += "[Freshman]" + "\r\n";
+            input += "Motivation";
+            input += "\r\n";
+            input += "[Foreign Student]" + "\r\n";
+            input += "Country" + "\r\n";
+            input += "\r\n";
+            input += "[Foreign Student] -<|-- [Freshman]" + "\r\n";
+            input += "[Student] -<|-- [Freshman]" + "\r\n";
+
+            var entityRelationships = ModelParser.EntityRelationships.Parse(input);
+
+            Assert.AreEqual(3, entityRelationships.Count(e => e is Entity));
+            Assert.AreEqual(2, entityRelationships.Count(r => r is IsaRelationship));
+        }
+
     }
 }

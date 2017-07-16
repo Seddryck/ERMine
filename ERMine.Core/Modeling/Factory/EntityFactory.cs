@@ -19,7 +19,7 @@ namespace ERMine.Core.Modeling.Factory
 
         public Entity Create(Entity entity, Attribute attribute)
         {
-            var attributes = new List<Attribute>(entity.Attributes);
+            var attributes = new List<Attribute>(entity.SpecificAttributes);
             attributes.Add(attribute);
 
             if (attributes.Any(a => a.IsPartOfPrimaryKey))

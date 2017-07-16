@@ -16,3 +16,7 @@ List_price money
 [Part]
 Description varchar(50)
 
+[Foreign part]
+Origin varchar(50)
+
+[Foreign part] -<|-- [Purchased part]

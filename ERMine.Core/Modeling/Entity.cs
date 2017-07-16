@@ -10,21 +10,21 @@ namespace ERMine.Core.Modeling
     {
         public string Label { get; private set; }
         public Key Key { get; protected set; }
-        public IList<Attribute> Attributes { get; private set; }
+        public IList<Attribute> SpecificAttributes { get; private set; }
 
         public IList<IsaRelationship> IsA { get; private set; }
 
         internal Entity(string label)
         {
             Label = label;
-            Attributes = new List<Attribute>();
+            SpecificAttributes = new List<Attribute>();
             IsA = new List<IsaRelationship>();
         }
 
         internal Entity(string label, IEnumerable<Attribute> attributes)
         {
             Label = label;
-            Attributes = attributes.ToList();
+            SpecificAttributes = attributes.ToList();
             BuildKey(attributes);
             IsA = new List<IsaRelationship>();
         }
@@ -37,6 +37,18 @@ namespace ERMine.Core.Modeling
         public virtual bool IsWeak
         {
             get { return false; }
+        }
+
+
+        public IEnumerable<Attribute> Attributes
+        {
+            get
+            {
+                return SpecificAttributes.Union
+                    (
+                        IsA.SelectMany(i => i.SuperClass.Attributes)
+                    );
+            }
         }
         
         #region IEquatable

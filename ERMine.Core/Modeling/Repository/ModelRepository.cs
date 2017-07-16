@@ -24,12 +24,12 @@ namespace ERMine.Core.Modeling.Repository
             else
             {
                 var existingEntity = model.Entities.Single(e => e.Equals(entity));
-                var missingAttributes = entity.Attributes.Except(existingEntity.Attributes);
+                var missingAttributes = entity.SpecificAttributes.Except(existingEntity.SpecificAttributes);
                 foreach (var missingAttribute in missingAttributes)
-                    existingEntity.Attributes.Add(missingAttribute);
+                    existingEntity.SpecificAttributes.Add(missingAttribute);
             }
 
-            foreach (var attr in entity.Attributes)
+            foreach (var attr in entity.SpecificAttributes)
                 attr.Domain = model.Domains.SingleOrDefault(d => d.Label == attr.DataType);
 
             return model.Entities.Single(e => e.Equals(entity));
@@ -65,7 +65,7 @@ namespace ERMine.Core.Modeling.Repository
                 }
             }
 
-            var attrs = model.Entities.SelectMany(e => e.Attributes).Where(a => a.DataType == domain.Label);
+            var attrs = model.Entities.SelectMany(e => e.SpecificAttributes).Where(a => a.DataType == domain.Label);
             foreach (var attr in attrs)
                 attr.Domain = domain;
         }
