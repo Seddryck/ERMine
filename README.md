@@ -51,6 +51,33 @@ Partial keys are noted with a tilt (~). An alternative notation is "PPK".
 * An attribute with a default value is noted with a equal (=). An alternative is the notation "DEFAULT"
   * Formula for implementation of default values must be specified between the curly braces and equal symbols ({= ... =})
 
+### Domains 
+
+<*name_of_domain*>
+*first_value*
+*second_value*
+...
+*last_value*
+
+A domain is a set of valid values for one or more attributes. A domain is defined with between angle brackets (<>) and the list of valid values is enlisted with one value by line. If a value contains many words then it should be written between quotes. At the moment, domains can only be a list of strings.
+
+**Expl:**
+```
+<Weekday>
+Monday
+Tuesday
+Wednesday
+'Later in the week'
+```
+To specify that an attribute is enforced by a domain you must replace the sql-type by the name of the domain. 
+
+**Expl:**
+```
+[Restaurant]
+* RestaurantCode varchar(20)
+ClosingDay Weekday
+```
+In this example the ```ClosingDay``` of a ```restaurant``` is constrained to be one of the four values defined in the domain ```Weekday```. 
 
 ## Relationships
 
