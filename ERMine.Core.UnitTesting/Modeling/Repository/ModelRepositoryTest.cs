@@ -164,6 +164,50 @@ namespace ERMine.UnitTesting.Core.Modeling.Repository
             Assert.AreEqual(1, repository.Get().Domains.Count);
         }
 
+        [TestMethod]
+        public void Merge_EntityThenDomain_DomainAssigned()
+        {
+            var repository = new ModelRepository();
+
+            var domain = new Domain("Weekday");
+            var attr = new ERMine.Core.Modeling.Attribute()
+            {
+                Label = "ClosingDay",
+                DataType = "Weekday"
+            };
+            var entity = new Entity("Restaurant", Enumerable.Repeat(attr, 1));
+
+            repository.Merge(entity);
+            repository.Merge(domain);
+
+            Assert.AreEqual(1, repository.Get().Domains.Count);
+            Assert.AreEqual(1, repository.Get().Entities.Count);
+            Assert.AreEqual("Weekday", repository.Get().Entities[0].Attributes[0].DataType);
+            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].Attributes[0].Domain);
+        }
+
+        [TestMethod]
+        public void Merge_DomainThenEntity_DomainAssigned()
+        {
+            var repository = new ModelRepository();
+
+            var domain = new Domain("Weekday");
+            var attr = new ERMine.Core.Modeling.Attribute()
+            {
+                Label = "ClosingDay",
+                DataType = "Weekday"
+            };
+            var entity = new Entity("Restaurant", Enumerable.Repeat(attr, 1));
+
+            repository.Merge(domain);
+            repository.Merge(entity);
+
+            Assert.AreEqual(1, repository.Get().Domains.Count);
+            Assert.AreEqual(1, repository.Get().Entities.Count);
+            Assert.AreEqual("Weekday", repository.Get().Entities[0].Attributes[0].DataType);
+            Assert.AreEqual(repository.Get().Domains[0], repository.Get().Entities[0].Attributes[0].Domain);
+        }
+
 
         [TestMethod]
         public void Merge_DistinctDomains_Loaded()

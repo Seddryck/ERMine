@@ -10,6 +10,11 @@ namespace ERMine.Core.Modeling
     {
         public string Label { get; set; }
         public string DataType { get; set; }
+        public Domain Domain { get; set; }
+        public bool IsConstrainedDomain
+        {
+            get { return Domain != null; }
+        }
         public bool IsNullable { get; set; }
         public bool IsSparse { get; set; }
         public bool IsImmutable { get; set; }

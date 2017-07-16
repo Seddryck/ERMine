@@ -30,6 +30,9 @@ namespace ERMine.Core.Modeling.Repository
                     model.Entities.Add(entity);
                 }
             }
+
+            foreach (var attr in entity.Attributes)
+                attr.Domain = model.Domains.SingleOrDefault(d => d.Label == attr.DataType);
         }
 
         public void MergeRelationship(Relationship relationship)
@@ -61,6 +64,10 @@ namespace ERMine.Core.Modeling.Repository
                     model.Domains.Add(domain);
                 }
             }
+
+            var attrs = model.Entities.SelectMany(e => e.Attributes).Where(a => a.DataType == domain.Label);
+            foreach (var attr in attrs)
+                attr.Domain = domain;
         }
 
         public void Merge(IEntityRelationship entityRelationship)
