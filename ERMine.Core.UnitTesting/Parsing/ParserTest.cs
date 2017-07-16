@@ -102,7 +102,7 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual(3, manufactured.Attributes.Count);
 
             Assert.AreEqual(part, manufactured.IsA[0].SuperClass);
-            Assert.IsInstanceOfType(manufactured.IsA[0], typeof(IsaOverlappingRelationship));
+            Assert.AreEqual("Overlapping", manufactured.IsA[0].Kind);
         }
     }
 }

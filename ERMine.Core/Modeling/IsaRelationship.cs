@@ -66,5 +66,10 @@ namespace ERMine.Core.Modeling
 
             return !(isa1.Equals(isa2));
         }
+
+        public virtual string Kind
+        {
+            get { return "Undefined"; }
+        }
     }
 }

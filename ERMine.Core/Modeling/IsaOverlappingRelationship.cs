@@ -19,5 +19,10 @@ namespace ERMine.Core.Modeling
         {
             Label = label;
         }
-}
+
+        public override string Kind
+        {
+            get { return "Overlapping"; }
+        }
+    }
 }
