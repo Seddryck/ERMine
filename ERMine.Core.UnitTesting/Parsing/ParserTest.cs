@@ -76,5 +76,26 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual(7, model.Entities.Count);
             Assert.AreEqual(3, model.IsaRelationships.Count);
         }
+
+        [TestMethod]
+        public void Parse_Part_Correct()
+        {
+            var text = string.Empty;
+            using (var stream = Assembly.GetExecutingAssembly()
+                                           .GetManifestResourceStream("ERMine.UnitTesting.Core.Parsing.Resources.Part.txt"))
+            using (var reader = new StreamReader(stream))
+            {
+                text = reader.ReadToEnd();
+            }
+
+            var parser = new Parser();
+            var model = parser.Parse(text);
+
+            Assert.AreEqual(3, model.Entities.Count);
+            Assert.AreEqual(1, model.IsaRelationships.Count);
+
+            var part = model.Entities.Single(e => e.Label == "Part");
+            Assert.AreEqual(2, part.Attributes.Count);
+        }
     }
 }

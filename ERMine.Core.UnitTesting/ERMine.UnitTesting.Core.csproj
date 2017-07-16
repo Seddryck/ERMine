@@ -81,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Parsing\Resources\Engineering.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Parsing\Resources\Part.txt" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

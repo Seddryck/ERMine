@@ -1,0 +1,15 @@
+﻿[Manufactured part] -<|-(o #1)- [Part]
+[Purchased part] -<|-(o #1)- [Part]
+
+[Part]
+* PartNo int
+Description varchar(50)
+
+[Manufactured part]
+Manufactured_date date
+BatchNo int
+DrawingNo int
+
+[Purchased part]
+SupplierName varchar(50)
+List_price money

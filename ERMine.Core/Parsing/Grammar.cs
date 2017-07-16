@@ -11,7 +11,7 @@ namespace ERMine.Core.Parsing
     {
         public static readonly Parser<string> NewLine = Parse.String(Environment.NewLine).Text();
         public static readonly Parser<string> Terminator = Parse.Return("").End().XOr(NewLine.End()).Or(NewLine);
-        public static readonly Parser<string> Textual = Parse.Letter.AtLeastOnce().Text();
+        public static readonly Parser<string> Textual = Parse.Letter.Or(Parse.Char('_')).AtLeastOnce().Text();
         public static readonly Parser<string> Number = Parse.Number;
         public static readonly Parser<string> BracketTextual = Parse.CharExcept("[]").AtLeastOnce().Text().Contained(Parse.Char('['), Parse.Char(']'));
         public static readonly Parser<string> CurlyBraceTextual = Parse.CharExcept("{}").AtLeastOnce().Text().Contained(Parse.Char('{'), Parse.Char('}')).Token();
