@@ -13,12 +13,15 @@ namespace ERMine.Core.Modeling.Factory
             var super = new Entity(firstEntity);
             var sub = new Entity(secondEntity);
 
-            return new IsaRelationship(super, sub, string.Empty, isPartial);
+            return new IsaRelationship(super, sub, (new Guid()).ToString(), isPartial);
         }
 
 
         public IsaUnionRelationship Create(string firstEntity, string secondEntity, bool isPartial, char type, string groupName)
         {
+            if (string.IsNullOrEmpty(groupName))
+                groupName = (new Guid()).ToString();
+
             var super = new Entity(firstEntity);
             var sub = new Entity(secondEntity);
             switch (type)

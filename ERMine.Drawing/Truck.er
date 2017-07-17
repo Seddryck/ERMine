@@ -1,0 +1,32 @@
+﻿[Bank]
+* Name
+Address ?
+
+[Person]
+* DriverLicenseNo
+Name 
+~Ssn
+Address ?
+
+[Bank]-(u #1)-|>-[Owner]
+[Person]-(u #1)-|>-[Owner]
+[Company]-(u #1)-|>-[Owner]
+
+[Company]
+* Name
+Address ?#
+
+[Owner] +-Owns-+ [Registered vehicule]
+
+[Registered vehicule]
+* LicensePlateNo
+
+[Car]-(u #1)-|>-[Registered vehicule]
+[Truck]-(u #1)-|>-[Registered vehicule]
+
+[Truck]
+Tonnage
+
+[Car]
+Style
+Model

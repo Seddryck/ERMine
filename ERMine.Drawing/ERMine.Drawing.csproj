@@ -44,6 +44,9 @@
       <HintPath>..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Graphviz, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graphviz.2.38.0.2\lib\Graphviz.dll</HintPath>
+    </Reference>
     <Reference Include="GraphVizWrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GraphViz.NET.1.0.0\lib\net40\GraphVizWrapper.dll</HintPath>
       <Private>True</Private>
@@ -58,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisjointnessRenderer.cs" />
     <Compile Include="CardinalityRenderer.cs" />
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="Sample.cs" />
@@ -65,7 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DefaultTemplate.st" />
-    <None Include="Sample.er">
+    <None Include="Truck.er">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="University.er">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
