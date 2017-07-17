@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace ERMine.Core.Modeling
 {
-    public class UnionPartialRelationship: UnionRelationship
+    public class UnionPartialRelationship : UnionRelationship
     {
         public UnionPartialRelationship(Entity super, Entity sub)
-            : this (super,  sub, string.Empty)
+            : this(super, sub, string.Empty)
         {
         }
-        
+
         public UnionPartialRelationship(Entity super, Entity sub, string label)
             : base(new[] { super }, sub, label)
         {
         }
-        
     }
 }

@@ -12,13 +12,17 @@ namespace ERMine.Core.Modeling
         public IsaTotalOverlappingRelationship(Entity super, Entity sub)
             : base(super, sub)
         {
-            
+
         }
         public IsaTotalOverlappingRelationship(Entity super, Entity sub, string label)
-            : this(super, sub)
-        {
-            Label = label;
-        }
+            : this(super, new[] { sub }, label)
+        { }
+
+        public IsaTotalOverlappingRelationship(Entity super, IEnumerable<Entity> subs, string label)
+                    : base(super, subs, label)
+        { }
+
+
 
         public override DisjointnessType Disjointness
         {

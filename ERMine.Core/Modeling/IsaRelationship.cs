@@ -10,21 +10,16 @@ namespace ERMine.Core.Modeling
     public class IsaRelationship : IsaUnionRelationship
     {
         public IsaRelationship(Entity super, Entity sub)
-            : this(super, new[] { sub }, string.Empty, true)
+            : this(super, new[] { sub }, string.Empty)
         {
         }
 
         public IsaRelationship(Entity super, Entity sub, string label)
-            : this(super, new[] { sub }, label, true)
+            : this(super, new[] { sub }, label)
         {
         }
 
-        public IsaRelationship(Entity super, Entity sub, string label, bool isPartial)
-            : this(super, new[] { sub }, label, isPartial)
-        {
-        }
-
-        public IsaRelationship(Entity super, IEnumerable<Entity> sub, string label, bool isPartial)
+        public IsaRelationship(Entity super, IEnumerable<Entity> sub, string label)
             : base(label)
         {
             SuperClass = super;

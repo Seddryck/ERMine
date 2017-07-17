@@ -16,10 +16,12 @@ namespace ERMine.Core.Modeling
         }
 
         public IsaTotalDisjointRelationship(Entity super, Entity sub, string label)
-            : this(super, sub)
+            : this(super, new[] { sub }, label)
         {
-            Label = label;
         }
+        public IsaTotalDisjointRelationship(Entity super, IEnumerable<Entity> subs, string label)
+            : base(super, subs, label)
+        { }
 
         public override DisjointnessType Disjointness
         {

@@ -15,10 +15,12 @@ namespace ERMine.Core.Modeling
             
         }
         public IsaPartialOverlappingRelationship(Entity super, Entity sub, string label)
-            : this(super, sub)
-        {
-            Label = label;
-        }
+            : this(super, new[] { sub }, label)
+        {}
+
+        public IsaPartialOverlappingRelationship(Entity super, IEnumerable<Entity> subs, string label)
+            : base(super, subs, label)
+        { }
 
         public override DisjointnessType Disjointness
         {

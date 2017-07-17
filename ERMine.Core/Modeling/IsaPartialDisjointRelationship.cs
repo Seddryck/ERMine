@@ -21,6 +21,10 @@ namespace ERMine.Core.Modeling
             Label = label;
         }
 
+        public IsaPartialDisjointRelationship(Entity super, IEnumerable<Entity> subs, string label)
+            : base(super, subs, label)
+        {}
+
         public override DisjointnessType Disjointness
         {
             get { return DisjointnessType.Disjoint; }

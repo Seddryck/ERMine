@@ -1,8 +1,8 @@
-﻿[Employee] -(d #1)-|>- [Secretary]
-[Employee] -(d #1)-|>- [Technician]
-[Employee] -(d #1)-|>- [Engineer]
+﻿[Employee] -(d)-|>- [Secretary]
+				|>- [Technician]
+				|>- [Engineer]
 
-[Employee] -(d)-|>- [Manager]
+[Employee] --|>- [Manager]
 
-[Employee] =(d #2)-|>- [Hourly employee]
-[Employee] =(d #2)-|>- [Salaried employee]
+[Employee] =(d)-|>- [Hourly employee]
+				|>- [Salaried employee]

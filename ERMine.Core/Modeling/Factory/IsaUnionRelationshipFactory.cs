@@ -10,39 +10,46 @@ namespace ERMine.Core.Modeling.Factory
     {
         public IsaUnionRelationship Create(string firstEntity, string secondEntity, bool isPartial)
         {
-            var super = new Entity(firstEntity);
-            var sub = new Entity(secondEntity);
-
-            return new IsaRelationship(super, sub, (new Guid()).ToString(), isPartial);
+            return this.Create(firstEntity, secondEntity, isPartial, 'd', string.Empty);
         }
-
 
         public IsaUnionRelationship Create(string firstEntity, string secondEntity, bool isPartial, char type, string groupName)
         {
+            return this.Create(firstEntity, new[] { secondEntity }, isPartial, type, groupName);
+        }
+
+
+        public IsaUnionRelationship Create(string firstEntity, string[] secondEntities, bool isPartial, char type, string groupName)
+        {
             if (string.IsNullOrEmpty(groupName))
-                groupName = (new Guid()).ToString();
+                groupName = (Guid.NewGuid()).ToString();
 
             var super = new Entity(firstEntity);
-            var sub = new Entity(secondEntity);
+
+            var listEntities = new List<Entity>();
+            foreach (var secondEntity in secondEntities)
+                listEntities.Add(new Entity(secondEntity));
+
             switch (type)
             {
                 case 'd':
                     return
                         isPartial ?
-                        (IsaUnionRelationship) new IsaPartialDisjointRelationship(super, sub, groupName) :
-                        (IsaUnionRelationship) new IsaTotalDisjointRelationship(super, sub, groupName);
+                        (IsaUnionRelationship)new IsaPartialDisjointRelationship(super, listEntities, groupName) :
+                        (IsaUnionRelationship)new IsaTotalDisjointRelationship(super, listEntities, groupName);
                 case 'o':
                     return
                         isPartial ?
-                        (IsaUnionRelationship)new IsaPartialOverlappingRelationship(super, sub, groupName) :
-                        (IsaUnionRelationship)new IsaTotalOverlappingRelationship(super, sub, groupName);
+                        (IsaUnionRelationship)new IsaPartialOverlappingRelationship(super, listEntities, groupName) :
+                        (IsaUnionRelationship)new IsaTotalOverlappingRelationship(super, listEntities, groupName);
                 case 'u':
                     return
                         isPartial ?
-                        (IsaUnionRelationship)new UnionPartialRelationship(super, sub, groupName) :
-                        (IsaUnionRelationship)new UnionTotalRelationship(super, sub, groupName);
+                        (IsaUnionRelationship)new UnionPartialRelationship(super, listEntities[0], groupName) :
+                        (IsaUnionRelationship)new UnionTotalRelationship(super, listEntities[0], groupName);
                 default:
                     throw new ArgumentOutOfRangeException();
+
             }
         }
     }
