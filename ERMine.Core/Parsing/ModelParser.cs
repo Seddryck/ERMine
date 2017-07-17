@@ -19,7 +19,7 @@ namespace ERMine.Core.Parsing
 
         public readonly static Parser<IEntityRelationship> IsaRelationship =
         (
-            from isaRelationship in IsaRelationshipParser.IsaRelationship
+            from isaRelationship in IsaUnionRelationshipParser.IsaRelationship
             select isaRelationship
         );
 

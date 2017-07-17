@@ -8,7 +8,7 @@ using ERMine.Core.Modeling.Factory;
 
 namespace ERMine.Core.Parsing
 {
-    static class IsaRelationshipParser
+    static class IsaUnionRelationshipParser
     {
         public struct IsaMarkerStruct
         {
@@ -26,14 +26,14 @@ namespace ERMine.Core.Parsing
         private readonly static Parser<IsaMarkerStruct> IsaMarker =
         (
             from firstSeparator in Parse.Char('(')
-            from type in Parse.Char('d').Or(Parse.Char('o'))
+            from type in Parse.Char('d').Or(Parse.Char('o')).Or(Parse.Char('u'))
             from space2 in Parse.WhiteSpace.Many()
             from groupName in Identifier.Optional()
             from secondSeparator in Parse.Char(')')
             select new IsaMarkerStruct(){ Type = type, Name = groupName.GetOrElse(string.Empty) }
         );
 
-        private readonly static Parser<IsaRelationship> LeftRightIsaRelationship =
+        private readonly static Parser<IsaUnionRelationship> LeftRightIsaRelationship =
         (
             from firstEntity in Grammar.BracketTextual
             from space1 in Parse.WhiteSpace.Many()
@@ -46,13 +46,13 @@ namespace ERMine.Core.Parsing
             from secondEntity in Grammar.BracketTextual
             select 
                 marker.IsDefined ? 
-                new IsaRelationshipFactory().Create(
+                new IsaUnionRelationshipFactory().Create(
                     firstEntity, secondEntity, completeness == '-', marker.Get().Type, marker.Get().Name) :
-                new IsaRelationshipFactory().Create(
+                new IsaUnionRelationshipFactory().Create(
                     firstEntity, secondEntity, completeness == '-')
         );
 
-        private readonly static Parser<IsaRelationship> RightLeftIsaRelationship =
+        private readonly static Parser<IsaUnionRelationship> RightLeftIsaRelationship =
         (
             from firstEntity in Grammar.BracketTextual
             from space1 in Parse.WhiteSpace.Many()
@@ -65,13 +65,13 @@ namespace ERMine.Core.Parsing
             from secondEntity in Grammar.BracketTextual
             select
                 marker.IsDefined ?
-                new IsaRelationshipFactory().Create(
+                new IsaUnionRelationshipFactory().Create(
                      secondEntity, firstEntity, completeness == '-', marker.Get().Type, marker.Get().Name) :
-                new IsaRelationshipFactory().Create(
+                new IsaUnionRelationshipFactory().Create(
                     secondEntity, firstEntity, completeness == '-')
         );
 
-        public readonly static Parser<IsaRelationship> IsaRelationship =
+        public readonly static Parser<IsaUnionRelationship> IsaRelationship =
         (
             from isaRelationship in LeftRightIsaRelationship.Or(RightLeftIsaRelationship)
             select isaRelationship

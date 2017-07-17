@@ -11,6 +11,7 @@ namespace ERMine.Core.Modeling
         public IList<Entity> Entities { get; internal set; }
         public IList<Relationship> Relationships { get; internal set; }
         public IList<IsaRelationship> IsaRelationships { get; internal set; }
+        public IList<UnionRelationship> UnionRelationships { get; internal set; }
         public IList<Domain> Domains { get; internal set; }
 
         public Model()
@@ -18,6 +19,7 @@ namespace ERMine.Core.Modeling
             Entities = new List<Entity>();
             Relationships = new List<Relationship>();
             IsaRelationships = new List<IsaRelationship>();
+            UnionRelationships = new List<UnionRelationship>();
             Domains = new List<Domain>();
         }
     }

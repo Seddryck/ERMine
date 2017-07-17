@@ -99,6 +99,33 @@ namespace ERMine.Core.Modeling.Repository
                 subClass.IsA.Add(isa);
         }
 
+        public void MergeUnionRelationship(UnionRelationship unionRelationship)
+        {
+            var subClass = MergeEntity(unionRelationship.SubClass);
+            unionRelationship.SubClass = subClass;
+
+            for (int i = 0; i < unionRelationship.SuperClasses.Count; i++)
+            {
+                var superClass = MergeEntity(unionRelationship.SuperClasses[i]);
+                unionRelationship.SuperClasses[i] = superClass;
+            }
+
+            if (model.UnionRelationships.Contains(unionRelationship))
+            {
+                var existing = model.UnionRelationships.Single(i => i.Equals(unionRelationship));
+                foreach (var superClass in unionRelationship.SuperClasses)
+                    if (!existing.SuperClasses.Contains(superClass))
+                        existing.SuperClasses.Add(superClass);
+
+            }
+            else
+                model.UnionRelationships.Add(unionRelationship);
+
+            var union = model.UnionRelationships.SingleOrDefault(i => i.Equals(unionRelationship));
+            union = union ?? unionRelationship; //It happens when the relationship has no name
+            subClass.Unions.Add(union);
+        }
+
         public void Merge(IEntityRelationship entityRelationship)
         {
             if (entityRelationship is Entity)
@@ -109,6 +136,8 @@ namespace ERMine.Core.Modeling.Repository
                 MergeDomain(entityRelationship as Domain);
             else if (entityRelationship is IsaRelationship)
                 MergeIsaRelationship(entityRelationship as IsaRelationship);
+            else if (entityRelationship is UnionRelationship)
+                MergeUnionRelationship(entityRelationship as UnionRelationship);
             else
                 throw new ArgumentOutOfRangeException();
         }
