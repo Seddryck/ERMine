@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace ERMine.Core.Modeling
 {
-    public class IsaRelationship: IEntityRelationship
+    public class IsaRelationship : IsaUnionRelationship
     {
-        private readonly bool isPartial;
-
         public IsaRelationship(Entity super, Entity sub)
-            : this (super, new[] { sub }, string.Empty, true)
+            : this(super, new[] { sub }, string.Empty, true)
         {
         }
 
@@ -27,18 +25,15 @@ namespace ERMine.Core.Modeling
         }
 
         public IsaRelationship(Entity super, IEnumerable<Entity> sub, string label, bool isPartial)
+            : base(label)
         {
             SuperClass = super;
             SubClasses = new List<Entity>(sub);
-            Label = label;
-            this.isPartial = isPartial;
         }
 
         public Entity SuperClass { get; internal set; }
 
         public IList<Entity> SubClasses { get; internal set; }
-
-        public string Label { get; protected set; }
 
         public override bool Equals(object obj)
         {
@@ -56,7 +51,7 @@ namespace ERMine.Core.Modeling
 
         public override int GetHashCode()
         {
-            return Label.GetHashCode()^ SuperClass.GetHashCode();
+            return Label.GetHashCode() ^ SuperClass.GetHashCode();
         }
 
         public static bool operator ==(IsaRelationship isa1, IsaRelationship isa2)
@@ -78,11 +73,6 @@ namespace ERMine.Core.Modeling
         public virtual DisjointnessType Disjointness
         {
             get { return DisjointnessType.Disjoint; }
-        }
-
-        public virtual CompletenessType Completeness
-        {
-            get { return CompletenessType.Partial; }
         }
     }
 }

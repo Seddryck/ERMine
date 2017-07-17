@@ -113,5 +113,29 @@ namespace ERMine.UnitTesting.Core.Parsing
             Assert.AreEqual(DisjointnessType.Disjoint, foreign.IsA[0].Disjointness);
             Assert.AreEqual(CompletenessType.Partial, foreign.IsA[0].Completeness);
         }
+
+        [TestMethod()]
+        public void Parse_Union_Correct()
+        {
+            var text = string.Empty;
+            using (var stream = Assembly.GetExecutingAssembly()
+                                           .GetManifestResourceStream("ERMine.UnitTesting.Core.Parsing.Resources.Union.txt"))
+            using (var reader = new StreamReader(stream))
+            {
+                text = reader.ReadToEnd();
+            }
+
+            var parser = new Parser();
+            var model = parser.Parse(text);
+
+            Assert.AreEqual(7, model.Entities.Count);
+            Assert.AreEqual(2, model.UnionRelationships.Count);
+
+            var truck = model.Entities.Single(e => e.Label == "Truck");
+            var car = model.Entities.Single(e => e.Label == "Car");
+            var vehicule = model.Entities.Single(e => e.Label == "Registered vehicule");
+            Assert.AreEqual(vehicule.Unions[0].SuperClasses[0], car);
+            Assert.AreEqual(vehicule.Unions[0].SuperClasses[1], truck);
+        }
     }
 }

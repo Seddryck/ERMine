@@ -1,0 +1,46 @@
+﻿[Person]
+* Ssn
+Name 
+Sex 
+Address ?
+BirthDate
+
+[Person]-(o #1)-|>-[Employee]
+[Person]-(o #1)-|>-[Alumnus]
+[Person]-(o #1)-|>-[Student]
+
+[Employee]
+Salary
+
+[Student]
+MajorDepartment
+
+[Alumnus]
+Degree #
+
+[Employee]-(d #1)-|>-[Staff]
+[Employee]-(d #1)-|>-[Faculty]
+[Employee]-(d #1)-|>-[Student assistant]
+
+[Staff]
+Position
+
+[Faculty]
+Rank
+
+[Student assistant]
+PercentTime
+
+[Student]-(d #1)-|>-[Graduate student]
+[Student]-(d #1)-|>-[Undergraduate student]
+
+[Student]--|>-[Student assistant]
+
+[Student assistant]=(d #1)-|>-[Research assistant]
+[Student assistant]=(d #1)-|>-[Teaching assistant]
+
+[Research assistant]
+Course
+
+[Teaching assistant]
+Project

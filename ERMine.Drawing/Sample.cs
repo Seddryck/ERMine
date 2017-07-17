@@ -41,15 +41,22 @@ namespace ERMine.Drawing
                 templateFile = File.ReadAllText(templateFile);
             }
 
+            var fileName = System.IO.Path.GetFileNameWithoutExtension(sourceFile);
+
 
             var group = new TemplateGroup('$', '$');
             group.RegisterRenderer(typeof(string), new StringRenderer());
             group.RegisterRenderer(typeof(Cardinality), new CardinalityRenderer());
+            group.RegisterRenderer(typeof(DisjointnessType), new DisjointnessRenderer());
+
             var template = new Template(group, text);
             template.Add("entities", model.Entities);
             template.Add("relationships", model.Relationships);
+            template.Add("isas", model.IsaRelationships);
+            template.Add("unions", model.UnionRelationships);
             var dot = template.Render();
             Console.WriteLine(dot);
+            File.WriteAllText(fileName + ".dot", dot);
 
             //// These three instances can be injected via the IGetStartProcessQuery, 
             ////                                               IGetProcessStartInfoQuery and 
@@ -64,10 +71,11 @@ namespace ERMine.Drawing
             var wrapper = new GraphGeneration(getStartProcessQuery,
                                               getProcessStartInfoQuery,
                                               registerLayoutPluginCommand);
+            wrapper.GraphvizPath= @"C:\Users\cedri\Projects\ERMine\packages\Graphviz.2.38.0.2\";
             wrapper.RenderingEngine = Enums.RenderingEngine.Neato;
             byte[] output = wrapper.GenerateGraph(dot, Enums.GraphReturnType.Png);
 
-            File.WriteAllBytes("toto2.png", output);
+            File.WriteAllBytes(fileName + ".png", output);
 
         }
     }

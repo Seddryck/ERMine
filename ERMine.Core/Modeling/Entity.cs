@@ -19,12 +19,14 @@ namespace ERMine.Core.Modeling
         public IList<Attribute> SpecificAttributes { get; private set; }
 
         public IList<IsaRelationship> IsA { get; private set; }
+        public IList<UnionRelationship> Unions { get; private set; }
 
         internal Entity(string label)
         {
             Label = label;
             SpecificAttributes = new List<Attribute>();
             IsA = new List<IsaRelationship>();
+            Unions = new List<UnionRelationship>();
         }
 
         internal Entity(string label, IEnumerable<Attribute> attributes)
@@ -32,6 +34,7 @@ namespace ERMine.Core.Modeling
             Label = label;
             SpecificAttributes = attributes.ToList();
             IsA = new List<IsaRelationship>();
+            Unions = new List<UnionRelationship>();
         }
 
         public virtual bool IsWeak
