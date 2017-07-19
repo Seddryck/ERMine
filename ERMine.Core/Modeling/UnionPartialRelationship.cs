@@ -18,5 +18,9 @@ namespace ERMine.Core.Modeling
             : base(new[] { super }, sub, label)
         {
         }
+
+        public UnionPartialRelationship(IEnumerable<Entity> supers, Entity sub, string label)
+            : base(supers, sub, label)
+        { }
     }
 }

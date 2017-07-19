@@ -19,7 +19,11 @@ namespace ERMine.Core.Modeling
         {
         }
 
-        public virtual CompletenessType Completeness
+        public UnionTotalRelationship(IEnumerable<Entity> supers, Entity sub, string label)
+            : base(supers, sub, label)
+        { }
+
+        public override CompletenessType Completeness
         {
             get { return CompletenessType.Total; }
         }

@@ -1,6 +1,6 @@
-﻿[Person] -(u #1)-|>- [Owner]
-[Bank] -(u #1)-|>- [Owner]
-[Company] -(u #1)-|>- [Owner]
+﻿[Owner] -<|-(u)- [Person]
+			   - [Bank]
+			   - [Company]
 
-[Car] -(u #1)-|>- [Registered vehicule]
-[Truck] -(u #1)-|>- [Registered vehicule]
+[Registered vehicule] -<|-(u)- [Car]
+                             - [Truck]

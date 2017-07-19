@@ -45,8 +45,8 @@ namespace ERMine.Core.Modeling.Factory
                 case 'u':
                     return
                         isPartial ?
-                        (IsaUnionRelationship)new UnionPartialRelationship(super, listEntities[0], groupName) :
-                        (IsaUnionRelationship)new UnionTotalRelationship(super, listEntities[0], groupName);
+                        (IsaUnionRelationship)new UnionPartialRelationship(listEntities,super , groupName) :
+                        (IsaUnionRelationship)new UnionTotalRelationship(listEntities, super , groupName);
                 default:
                     throw new ArgumentOutOfRangeException();
 
