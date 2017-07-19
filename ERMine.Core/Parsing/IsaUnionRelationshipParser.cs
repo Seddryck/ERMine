@@ -26,7 +26,7 @@ namespace ERMine.Core.Parsing
         private readonly static Parser<IsaMarkerStruct> IsaMarker =
         (
             from firstSeparator in Parse.Char('(')
-            from type in Parse.Char('d').Or(Parse.Char('o')).Or(Parse.Char('u'))
+            from type in Parse.Char('d').Or(Parse.Char('o'))
             from space2 in Parse.WhiteSpace.Many()
             from groupName in Identifier.Optional()
             from secondSeparator in Parse.Char(')')
@@ -117,10 +117,25 @@ namespace ERMine.Core.Parsing
                     firstEntity, unionMembers.ToArray(), completeness == '-', 'u', string.Empty)
         );
 
+        private readonly static Parser<IsaUnionRelationship> LeftRightUnionRelationship =
+        (
+            from firstEntity in Grammar.BracketTextual
+            from space1 in Parse.WhiteSpace.Many()
+            from completeness in Parse.Char('-').Or(Parse.Char('='))
+            from unionSymbol in Parse.String("(u")
+            from space2 in Parse.WhiteSpace.Many()
+            from identifier in Identifier
+            from way in Parse.String(")-|>-")
+            from space3 in Parse.WhiteSpace.Many()
+            from secondEntity in Grammar.BracketTextual
+            select
+                new IsaUnionRelationshipFactory().Create(
+                    secondEntity, firstEntity, completeness == '-', 'u', identifier)
+        );
 
         public readonly static Parser<IsaUnionRelationship> IsaRelationship =
         (
-            from isaRelationship in MultipleIsaRelationship.Or(MultipleUnionRelationship).Or(LeftRightIsaRelationship).Or(RightLeftIsaRelationship)
+            from isaRelationship in MultipleIsaRelationship.Or(MultipleUnionRelationship).Or(LeftRightIsaRelationship).Or(RightLeftIsaRelationship).Or(LeftRightUnionRelationship)
             select isaRelationship
         );
 

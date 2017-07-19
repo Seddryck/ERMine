@@ -81,7 +81,7 @@ namespace ERMine.UnitTesting.Core.Parsing
         [TestMethod]
         public void UnionRelationship_Unnamed_TwoEntities()
         {
-            var input = "[Person] -(u)-|>- [Owner]";
+            var input = "[Owner] -<|-(u)- [Person]";
             var unionRelationship = IsaUnionRelationshipParser.IsaRelationship.Parse(input) as UnionRelationship;
 
             Assert.AreEqual("Person", unionRelationship.SuperClasses[0].Label);
@@ -95,10 +95,11 @@ namespace ERMine.UnitTesting.Core.Parsing
             var input = "[Person] -(u #1)-|>- [Owner]";
             var unionRelationship = IsaUnionRelationshipParser.IsaRelationship.Parse(input) as UnionRelationship;
 
+            Assert.IsInstanceOfType(unionRelationship, typeof(UnionPartialRelationship));
             Assert.AreEqual("Person", unionRelationship.SuperClasses[0].Label);
             Assert.AreEqual("Owner", unionRelationship.SubClass.Label);
             Assert.AreEqual("1", unionRelationship.Label);
-            Assert.IsInstanceOfType(unionRelationship, typeof(UnionPartialRelationship));
+           
         }
 
     }
