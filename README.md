@@ -2,7 +2,7 @@
 ERMine is a library to parse text files describing a conceptual Entity Relationship model and create an object representation of this model.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/037mxfssp1fr0y4r?svg=true)](https://ci.appveyor.com/project/Seddryck/ermine) 
-![Still maintained](https://img.shields.io/maintenance/yes/2017.svg)
+![Still maintained](https://img.shields.io/maintenance/yes/2018.svg)
 ![nuget](https://img.shields.io/nuget/v/ERMine.svg) 
 ![nuget pre](https://img.shields.io/nuget/vpre/ERMine.svg)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
