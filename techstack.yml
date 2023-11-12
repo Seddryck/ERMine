@@ -1,0 +1,128 @@
+repo_name: Seddryck/ERMine
+report_id: ba11467a00d51543fa8f07bb7b1931de
+repo_type: Public
+timestamp: '2023-11-12T20:23:03+00:00'
+requested_by: Seddryck
+provider: github
+branch: master
+detected_tools_count: 10
+tools:
+- name: ASP.NET
+  description: An open source web framework for building modern web apps and services
+    with .NET
+  website_url: https://www.asp.net/
+  version: '4.5'
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/6755/2c45151a4a11d3a3c8e71bb34dd069d6_400x400.png
+  detection_source_url: ERMine.Core.UnitTesting/ERMine.UnitTesting.Core.csproj
+  detection_source: ERMine.Drawing/ERMine.Drawing.csproj
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-03 21:45:35.000000000 Z
+- name: C#
+  description: Simple, general-purpose, object-oriented programming language for the
+    .NET platform
+  website_url: http://csharp.net
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1015/1200px-C_Sharp_wordmark.svg.png
+  detection_source: Repo Metadata
+- name: ".NET"
+  description: A free, cross-platform, open source developer platform for building
+    many different types of applications
+  website_url: http://www.microsoft.com/net/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/1014/IoPy1dce_400x400.png
+  detection_source: ERMine.Drawing/packages.config
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-18 19:28:12.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source: Repo Metadata
+- name: NuGet
+  description: The package manager for .NET
+  website_url: https://www.nuget.org/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/service/2637/6I3oEOP4_400x400.jpg
+  detection_source: ERMine.Drawing/packages.config
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-09 15:46:21.000000000 Z
+- name: Visual Studio
+  description: State-of-the-art tools and services that you can use to create great
+    apps for devices, the cloud, and everything in between.
+  website_url: http://msdn.microsoft.com/en-us/vstudio/aa718325.aspx
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Integrated Development Environment
+  image_url: https://img.stackshare.io/service/1451/SR2hUhQN.png
+  detection_source: ERMine.sln
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-03 21:45:35.000000000 Z
+- name: PowerShell
+  description: A task automation and configuration management framework
+  website_url: https://docs.microsoft.com/en-us/powershell/
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/3681/powershell-logo.png
+  detection_source: Repo Metadata
+- name: Antlr4.StringTemplate
+  description: StringTemplate
+  package_url: https://www.nuget.org/Antlr4.StringTemplate
+  version: 4.0.6
+  open_source: false
+  hosted_saas: false
+  category: Libraries
+  sub_category: NuGet Packages
+  image_url: https://img.stackshare.io/package/14774/default_d4bab497d6f953a185d2fc07e88b123334dde672.png
+  detection_source_url: ERMine.Drawing/packages.config
+  detection_source: ERMine.Drawing/packages.config
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-18 19:28:12.000000000 Z
+- name: CommandLineParser
+  description: Terse syntax C# command line parser for .NET
+  package_url: https://www.nuget.org/CommandLineParser
+  version: 2.0.275
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: NuGet Packages
+  image_url: https://img.stackshare.io/package/13122/default_a5e8cd728170fc92850284a53a17ff7deb73f318.png
+  detection_source_url: ERMine.Drawing/packages.config
+  detection_source: ERMine.Drawing/packages.config
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-18 19:28:12.000000000 Z
+- name: Sprache
+  description: Sprache is a simple
+  package_url: https://www.nuget.org/Sprache
+  version: 2.0.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: NuGet Packages
+  image_url: https://img.stackshare.io/package/13233/default_cadeaa4a9968284dcd1223273394c410c31c9d09.png
+  detection_source_url: ERMine.Core.UnitTesting/packages.config
+  detection_source: ERMine.Core/packages.config
+  last_updated_by: Cédric L. Charlier
+  last_updated_on: 2016-04-03 21:45:35.000000000 Z
