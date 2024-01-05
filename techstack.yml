@@ -1,7 +1,8 @@
 repo_name: Seddryck/ERMine
 report_id: ba11467a00d51543fa8f07bb7b1931de
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-12T20:23:03+00:00'
+timestamp: '2024-01-05T08:48:00+00:00'
 requested_by: Seddryck
 provider: github
 branch: master
@@ -17,8 +18,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/6755/2c45151a4a11d3a3c8e71bb34dd069d6_400x400.png
-  detection_source_url: ERMine.Core.UnitTesting/ERMine.UnitTesting.Core.csproj
-  detection_source: ERMine.Drawing/ERMine.Drawing.csproj
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.Core.UnitTesting/ERMine.UnitTesting.Core.csproj
+  detection_source: ERMine.Core.UnitTesting/ERMine.UnitTesting.Core.csproj
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-03 21:45:35.000000000 Z
 - name: C#
@@ -30,6 +31,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1015/1200px-C_Sharp_wordmark.svg.png
+  detection_source_url: https://github.com/Seddryck/ERMine
   detection_source: Repo Metadata
 - name: ".NET"
   description: A free, cross-platform, open source developer platform for building
@@ -41,6 +43,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/1014/IoPy1dce_400x400.png
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.Drawing/packages.config
   detection_source: ERMine.Drawing/packages.config
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-18 19:28:12.000000000 Z
@@ -52,6 +55,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/Seddryck/ERMine
   detection_source: Repo Metadata
 - name: NuGet
   description: The package manager for .NET
@@ -61,6 +65,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/service/2637/6I3oEOP4_400x400.jpg
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.Drawing/packages.config
   detection_source: ERMine.Drawing/packages.config
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-09 15:46:21.000000000 Z
@@ -73,6 +78,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Integrated Development Environment
   image_url: https://img.stackshare.io/service/1451/SR2hUhQN.png
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.sln
   detection_source: ERMine.sln
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-03 21:45:35.000000000 Z
@@ -84,6 +90,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/3681/powershell-logo.png
+  detection_source_url: https://github.com/Seddryck/ERMine
   detection_source: Repo Metadata
 - name: Antlr4.StringTemplate
   description: StringTemplate
@@ -94,7 +101,7 @@ tools:
   category: Libraries
   sub_category: NuGet Packages
   image_url: https://img.stackshare.io/package/14774/default_d4bab497d6f953a185d2fc07e88b123334dde672.png
-  detection_source_url: ERMine.Drawing/packages.config
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.Drawing/packages.config
   detection_source: ERMine.Drawing/packages.config
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-18 19:28:12.000000000 Z
@@ -108,7 +115,7 @@ tools:
   category: Libraries
   sub_category: NuGet Packages
   image_url: https://img.stackshare.io/package/13122/default_a5e8cd728170fc92850284a53a17ff7deb73f318.png
-  detection_source_url: ERMine.Drawing/packages.config
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.Drawing/packages.config
   detection_source: ERMine.Drawing/packages.config
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-18 19:28:12.000000000 Z
@@ -122,7 +129,7 @@ tools:
   category: Libraries
   sub_category: NuGet Packages
   image_url: https://img.stackshare.io/package/13233/default_cadeaa4a9968284dcd1223273394c410c31c9d09.png
-  detection_source_url: ERMine.Core.UnitTesting/packages.config
-  detection_source: ERMine.Core/packages.config
+  detection_source_url: https://github.com/Seddryck/ERMine/blob/master/ERMine.Core.UnitTesting/packages.config
+  detection_source: ERMine.Core.UnitTesting/packages.config
   last_updated_by: Cédric L. Charlier
   last_updated_on: 2016-04-03 21:45:35.000000000 Z
